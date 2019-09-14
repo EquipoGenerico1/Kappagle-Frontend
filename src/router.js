@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 import SignUp from './views/SignUp.vue'
-import Users from './views/Users.vue'
+import Checks from './views/Checks.vue'
 
 Vue.use(Router)
 
@@ -30,9 +30,9 @@ export default new Router({
     }
     ,
     {
-      path: '/users',
-      name: 'users',
-      component: Users
+      path: '/checks',
+      name: 'checks',
+      component: Checks
     }
   ]
 })
