@@ -5,6 +5,7 @@ import Login from './views/Login.vue'
 import SignUp from './views/SignUp.vue'
 import Checks from './views/Checks.vue'
 
+
 Vue.use(Router)
 
 export default new Router({
@@ -27,8 +28,7 @@ export default new Router({
       path: '/home',
       name: 'home',
       component: Home
-    }
-    ,
+    },
     {
       path: '/checks',
       name: 'checks',
