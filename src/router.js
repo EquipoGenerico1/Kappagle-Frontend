@@ -3,11 +3,11 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 import SignUp from './views/SignUp.vue'
-
+import {isLogged} from './helpers/role'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -16,7 +16,14 @@ export default new Router({
     {
       path: '/login',
       name: 'login',
-      component: Login
+      component: Login,
+      beforeEnter: (to, from, next) => {
+        if(isLogged()){
+          next('/home');
+        }else{
+          next();
+        }
+      }
     },
     {
       path: '/signUp',
@@ -26,7 +33,16 @@ export default new Router({
     {
       path: '/home',
       name: 'home',
-      component: Home
+      component: Home,
+      beforeEnter: (to, from, next) => {
+        if(isLogged()){
+          next();
+        }else{
+          next('/login')
+        }
+      }
     }
   ]
 })
+
+export default router
