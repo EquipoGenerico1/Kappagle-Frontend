@@ -3,10 +3,10 @@
     <div class="today-check">
       <KCard class="today-card"></KCard>
     </div>
-    <div :class="!showMore ? 'show-more-margin' : null" class="show-more">
+    <div :class="!showMore ? 'show-more-margin' : 'not-show-more-margin'" class="show-more">
       <KButton
         v-scroll-to="'#list'"
-        class="button"
+        class="show-more-button"
         value="Show more"
         alt="true"
         @click="showMore = !showMore"
@@ -51,7 +51,11 @@ export default {
   height: 100%;
 }
 .mcards {
-  height: 120px;
+  height: 110px;
+}
+.show-more-button {
+  max-height: 100%;
+  height: inherit;
 }
 .button {
   flex-basis: 100%;
@@ -65,15 +69,19 @@ export default {
 }
 .list,
 .show-more-margin {
+  margin-top: 10px;
   width: 100%;
   margin-bottom: 90px;
 }
+.not-show-more-margin {
+  margin-top: 10px;
+}
 .show-more {
-  height: 80px;
-  width: 100%;
+  height: 50px;
+  width: calc(100% - 10px);
 }
 .today-check {
   width: 100%;
-  height: calc(80% - 15px);
+  min-height: calc(80% - 15px);
 }
 </style>

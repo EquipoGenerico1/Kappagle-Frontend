@@ -68,7 +68,7 @@ export default {
   color: white;
 }
 .card-body {
-  height: 70%;
+  margin-top: 10px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
