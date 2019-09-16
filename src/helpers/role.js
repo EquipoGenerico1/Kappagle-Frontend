@@ -27,6 +27,7 @@ function isLogged(){
     var role = getRole();
     return role == 'ROLE_USER'
     || role == 'ROLE_ADMIN'
+    || role == 'ROLE_ASSOCIATE'
 }
 
 module.exports = {
