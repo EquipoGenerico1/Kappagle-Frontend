@@ -46,6 +46,7 @@ export default {
 .k-card-container {
   height: 15vh;
   padding: 5px;
+  flex-basis: 100%;
 }
 .k-card {
   background-color: white;

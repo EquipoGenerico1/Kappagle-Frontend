@@ -2,6 +2,9 @@
   <div class="checks">
     <div class="check-container">
       <KButton class="button" value="Check In"></KButton>
+      <div class="list">
+        <KCard v-for="card in 20"></KCard>
+      </div>
     </div>
   </div>
 </template>
@@ -37,5 +40,13 @@ export default {
 .button {
   flex-basis: 100%;
   height: 10vh;
+  width: calc(100% - 10px);
+  position: fixed;
+  left: 5px;
+  bottom: 5px;
+}
+.list {
+  width: 100%;
+  margin-bottom: calc(10vh + 5px);
 }
 </style>
