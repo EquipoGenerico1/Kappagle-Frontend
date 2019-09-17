@@ -7,7 +7,7 @@
       <KButton
         v-scroll-to="'#list'"
         class="show-more-button"
-        value="Show more"
+        :value="showMore? 'Show less' : 'Show more'"
         alt="true"
         @click="showMore = !showMore"
       ></KButton>
