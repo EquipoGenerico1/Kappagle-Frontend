@@ -1,14 +1,4 @@
 function getRole(){  
-    // THIS SHOULD NOT BE HERE //
-    var item = {    
-                    // role: "ROLE_USER",
-                    role: "ROLE_ADMIN",
-                    expires_in: Date.now()
-                };
-    
-    localStorage.setItem("token",JSON.stringify(item) );
-    /////////////////////////////
-    
     var token=localStorage.getItem("token");
     
     if(token){
