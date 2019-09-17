@@ -44,7 +44,7 @@ export default {
 
 <style scoped>
 .k-card-container {
-  height: 15vh;
+  height: 100%;
   padding: 5px;
   flex-basis: 100%;
 }
@@ -61,7 +61,7 @@ export default {
   display: flex;
   justify-content: start;
   align-items: center;
-  height: 30%;
+  height: 40px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   background-color: #14283d;
