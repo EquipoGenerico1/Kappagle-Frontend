@@ -12,7 +12,7 @@ export default {
   props: {
     name: {
       type: String,
-      default: "Pacoooooo"
+      default: "Paco López García"
     }
     },
   data() {
@@ -26,12 +26,15 @@ export default {
 
 #NCard-container{
 background-color: white;
-padding: 15px 15px;
+padding: 46px 20px;
 border-radius: 5px;
 -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
 -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
 box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
-margin-bottom: 6px;
+margin-bottom: 8px;
+margin-top: 3px;
+margin-right: 5px;
+margin-left: 5px;
 }
 #name{
 display: flex;

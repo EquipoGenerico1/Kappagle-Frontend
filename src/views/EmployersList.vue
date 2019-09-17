@@ -12,7 +12,7 @@
         </div>
     </div>
     <div id="employers-cards">
-       <NCard v-for="card in 20"></NCard>
+       <NCard v-for="card in 15"></NCard>
     </div>
   </div>
 </template>
@@ -39,7 +39,7 @@ display: flex;
 height: 100px;
 width: 100vh;
 background-color:  #1e344b;
-margin-bottom: 22px;
+margin-bottom: 44px;
 box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
 }
 #seach-button{
@@ -51,6 +51,7 @@ box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
     background-color:#1e344b;
     color: white;
     padding: 2px 20px;
+    font-size: 36px;
 }
 #mySearch{
     background-color: transparent;
@@ -61,6 +62,7 @@ box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
     border-image: none;
     color: white;
     padding: 1px 10px;
+    font-size: 34px;
 }
 #space-for-add-button{
     display: flex;
@@ -80,15 +82,15 @@ box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
     -webkit-border-radius: 50px;
     -moz-border-radius: 50px;
     border-radius: 50px;
-    margin-top: 50px;
+    margin-top: 94px;
     box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
+    font-size: 36px;
 }
 #employers-cards{
     display: flex;
     width: 100vh;
     background-color: white;
     flex-direction: column;
-    padding: 5px;
 }
 
 </style>
