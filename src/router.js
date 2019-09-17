@@ -4,7 +4,7 @@ import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 import SignUp from './views/SignUp.vue'
 import Checks from './views/Checks.vue'
-import {isLogged} from './helpers/role'
+import {isLogged, getRole} from './helpers/role'
 import EmployersList from './views/EmployersList.vue'
 
 Vue.use(Router)
@@ -21,7 +21,7 @@ const router = new Router({
       component: Login,
       beforeEnter: (to, from, next) => {
         if(isLogged()){
-          next('/home');
+          next('/checks');
         }else{
           next();
         }
@@ -47,12 +47,26 @@ const router = new Router({
     {
       path: '/checks',
       name: 'checks',
-      component: Checks
+      component: Checks,
+      beforeEnter: (to, from, next) => {
+        if(isLogged()){
+          next();
+        }else{
+          next('/login')
+        }
+      }
     },
     {
       path: '/users',
       name: 'users',
       component: EmployersList
+      ,beforeEnter: (to, from, next) => {
+        if(getRole() == 'ROLE_ADMIN'){
+          next();
+        }else{
+          next('/login')
+        }
+      }
     }
   ]
 })
