@@ -11,7 +11,7 @@
         </div>
     </div>
       <div class="button-login">
-        <KButton class="button" value="login" @click="guacamole"></KButton>
+        <KButton class="button" value="login" @click="login"></KButton>
       </div>
   </div>
 </template>
@@ -33,12 +33,16 @@ export default {
     };
   },
   methods: {
-    guacamole: function() {
+    login: function() {
       axios.post("http://localhost:5000/api/v1/login", {
         email: this.email,
         password: this.password
       }).then(res => {
         localStorage.setItem("token", JSON.stringify(res.data));
+        this.$router
+        .push({ path: "checks", query: {} })
+        .catch(() => {});
+
       }).catch(error => {
         console.log(error);
       });
