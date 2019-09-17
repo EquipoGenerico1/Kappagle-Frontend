@@ -4,11 +4,12 @@ import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 import SignUp from './views/SignUp.vue'
 import Checks from './views/Checks.vue'
+import {isLogged} from './helpers/role'
 import EmployersList from './views/EmployersList.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -17,7 +18,14 @@ export default new Router({
     {
       path: '/login',
       name: 'login',
-      component: Login
+      component: Login,
+      beforeEnter: (to, from, next) => {
+        if(isLogged()){
+          next('/home');
+        }else{
+          next();
+        }
+      }
     },
     {
       path: '/signUp',
@@ -27,7 +35,14 @@ export default new Router({
     {
       path: '/home',
       name: 'home',
-      component: Home
+      component: Home,
+      beforeEnter: (to, from, next) => {
+        if(isLogged()){
+          next();
+        }else{
+          next('/login')
+        }
+      }
     },
     {
       path: '/checks',
@@ -41,3 +56,5 @@ export default new Router({
     }
   ]
 })
+
+export default router
