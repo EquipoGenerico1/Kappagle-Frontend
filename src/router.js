@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 import SignUp from './views/SignUp.vue'
 import Checks from './views/Checks.vue'
+import EmployersList from './views/EmployersList.vue'
 
 Vue.use(Router)
 
@@ -32,6 +33,11 @@ export default new Router({
       path: '/checks',
       name: 'checks',
       component: Checks
+    },
+    {
+      path: '/employerslist',
+      name: 'employerslist',
+      component: EmployersList
     }
   ]
 })
