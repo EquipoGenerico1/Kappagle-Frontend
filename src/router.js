@@ -5,6 +5,7 @@ import Login from './views/Login.vue'
 import SignUp from './views/SignUp.vue'
 import Checks from './views/Checks.vue'
 import {isLogged} from './helpers/role'
+import EmployersList from './views/EmployersList.vue'
 
 Vue.use(Router)
 
@@ -47,6 +48,11 @@ const router = new Router({
       path: '/checks',
       name: 'checks',
       component: Checks
+    },
+    {
+      path: '/users',
+      name: 'users',
+      component: EmployersList
     }
   ]
 })
