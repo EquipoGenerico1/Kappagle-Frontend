@@ -35,8 +35,8 @@ export default new Router({
       component: Checks
     },
     {
-      path: '/employerslist',
-      name: 'employerslist',
+      path: '/users',
+      name: 'users',
       component: EmployersList
     }
   ]
