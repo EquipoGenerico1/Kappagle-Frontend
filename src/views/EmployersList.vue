@@ -30,11 +30,11 @@ export default {
 
 <style scoped>
 #container-master {
-  font-size: 36px;
+  font-size: 24px;
 }
 #search-bar {
   display: flex;
-  height: 100px;
+  height: 80px;
   width: 100%;
   background-color: #1e344b;
   margin-bottom: 44px;
@@ -49,7 +49,7 @@ export default {
   background-color: #1e344b;
   color: white;
   padding: 2px 20px;
-  font-size: 36px;
+  font-size: 24px;
 }
 #mySearch {
   background-color: transparent;
@@ -60,11 +60,10 @@ export default {
   border-image: none;
   color: white;
   padding: 1px 10px;
-  font-size: 34px;
+  font-size: 18px;
 }
 #space-for-add-button {
   display: flex;
-  width: 20%;
   justify-content: center;
   align-items: center;
 }
@@ -80,17 +79,14 @@ export default {
   -webkit-border-radius: 50px;
   -moz-border-radius: 50px;
   border-radius: 50px;
-  margin-top: 94px;
+  margin-top: 80px;
   box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
-  font-size: 36px;
+  margin-right: 50%;
 }
 #employers-cards {
   display: flex;
   width: 100%;
   background-color: white;
   flex-direction: column;
-}
-.users {
-  height: 20%;
 }
 </style>
