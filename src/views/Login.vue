@@ -1,28 +1,28 @@
 <template>
   <div class="login">
     <div class="user-pass">
-        <div class="login-email">
-          <label>email</label>
-          <input type="text" name ="email" v-model="email">
-        </div>
-        <div class="login-pass">
-          <label>Password</label>
-          <input type="text" name ="password" v-model="password">
-        </div>
-    </div>
-      <div class="button-login">
-        <KButton class="button" value="login" @click="guacamole"></KButton>
+      <div class="login-email">
+        <label>email</label>
+        <input type="text" name="email" v-model="email" />
       </div>
+      <div class="login-pass">
+        <label>Password</label>
+        <input type="text" name="password" v-model="password" />
+      </div>
+    </div>
+    <div class="button-login">
+      <KButton class="button" value="login" @click="guacamole"></KButton>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import KButton from "../components/Button";
-import axios from "axios";
+import requests from "../helpers/axios";
 
 export default {
-  name: 'login',
+  name: "login",
   components: {
     KButton
   },
@@ -34,18 +34,17 @@ export default {
   },
   methods: {
     guacamole: function() {
-      axios.post("http://localhost:5000/api/v1/login", {
-        email: this.email,
-        password: this.password
-      }).then(res => {
-        localStorage.setItem("token", JSON.stringify(res.data));
-      }).catch(error => {
-        console.log(error);
-      });
-
+      requests
+        .login(this.email, this.password)
+        .then(res => {
+          localStorage.setItem("token", JSON.stringify(res.data));
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   }
-}
+};
 </script>
 
 <style scoped>
@@ -57,5 +56,4 @@ export default {
   left: 5px;
   bottom: 5px;
 }
-
 </style>
