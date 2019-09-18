@@ -1,7 +1,7 @@
 <template>
   <div class="login">
+    <h1>Login</h1>
     <div class="user-pass">
-      <h1>Login</h1>
         <div class="login-email">
           <label>Email</label>
           <div class="input email">
@@ -67,6 +67,9 @@ export default {
 }
 /**/
 h1 {
+  display: flex;
+  width: 100%;
+  justify-content: center;
   font-weight: 700;
   text-align: center;
   line-height: 1.5em;
@@ -79,7 +82,7 @@ h1 {
   flex-wrap: wrap;
   justify-content: center;
   align-content: center;
-  padding: 6%;
+  padding: 5%;
   margin: 0;
 }
 .login-email {
@@ -87,7 +90,25 @@ h1 {
 }
 label {
   display: flex;
-  justify-content: center;
   margin-bottom: 1em;
 }
+
+.user-pass {
+  padding: 5%;
+  box-shadow: 0px 1px 1px gray;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+input {
+  border: none;
+  border-bottom: 1px solid gray;
+  border-radius: 4px;
+  height: 30px;
+}
+input:focus {
+  border: 1px solid #555;
+}
+
 </style>
