@@ -24,10 +24,10 @@
 <script>
 // @ is an alias to /src
 import KButton from "../components/Button";
-import axios from "axios";
+import requests from "../helpers/axios";
 
 export default {
-  name: 'login',
+  name: "login",
   components: {
     KButton
   },
@@ -47,14 +47,13 @@ export default {
         this.$router
         .push({ path: "checks", query: {} })
         .catch(() => {});
-
       }).catch(error => {
         console.log(error);
       });
 
     }
   }
-}
+};
 </script>
 
 <style scoped>
@@ -74,7 +73,6 @@ h1 {
   margin-bottom: 1.2em;
   margin-top: 0.2em;
 }
-
 .login {
   font-family: sans-serif;
   display: flex;
@@ -92,7 +90,4 @@ label {
   justify-content: center;
   margin-bottom: 1em;
 }
-
-
-
 </style>
