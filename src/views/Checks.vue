@@ -69,7 +69,7 @@ export default {
 }
 .list,
 .show-more-margin {
-  margin-top: 10px;
+  margin-top: 5px;
   width: 100%;
   margin-bottom: 90px;
 }
