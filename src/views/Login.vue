@@ -39,10 +39,10 @@ export default {
   },
   methods: {
     login: function() {
-      axios.post("http://localhost:5000/api/v1/login", {
-        email: this.email,
-        password: this.password
-      }).then(res => {
+      requests.login(
+        this.email,
+        this.password
+      ).then(res => {
         localStorage.setItem("token", JSON.stringify(res.data));
         this.$router
         .push({ path: "checks", query: {} })
