@@ -7,7 +7,15 @@ var requests = {
             email: email,
             password: password
         });
-    }
+    },
+    checks() {
+        let token = JSON.parse(localStorage.getItem("token"));
+        return axios.get(`${url}/users/checks`, {
+            headers: {
+                Authorization: `Bearer ${token["access_token"]}`
+            }
+        });
+    },
 }
 
 

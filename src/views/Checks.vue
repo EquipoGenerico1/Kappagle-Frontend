@@ -13,7 +13,13 @@
       ></KButton>
     </div>
     <div class="list" id="list" v-if="showMore">
-      <KCard v-for="check in moreCheckIns" :key="check" class="mcards"></KCard>
+      <KCard
+        v-for="check in moreCheckIns"
+        :key="check._id"
+        :checkIn="check.checkIn"
+        :checkOut="check.checkOut"
+        class="mcards"
+      ></KCard>
     </div>
     <KButton class="check-button button" value="Check In"></KButton>
   </div>
@@ -23,6 +29,7 @@
 // @ is an alias to /src
 import KButton from "../components/Button";
 import KCard from "../components/CheckCard";
+import axios from "../helpers/axios";
 
 export default {
   name: "Checks",
@@ -34,10 +41,23 @@ export default {
     return {
       showMore: false,
       todayCheckIn: {},
-      moreCheckIns: ["1", "2", "3", "4", "5", "6", "7"]
+      moreCheckIns: []
     };
   },
-  methods: {}
+  methods: {
+    getChecks() {
+      axios
+        .checks()
+        .then(res => {
+          this.moreCheckIns = res.data;
+          console.log(res);
+        })
+        .catch(err => console.log(err));
+    }
+  },
+  created: function() {
+    this.getChecks();
+  }
 };
 </script>
 

@@ -2,41 +2,45 @@
   <div class="k-card-container">
     <div class="k-card">
       <div class="card-header">
-        <div class="date">{{date}}</div>
+        <div class="date">{{day}}/{{month}}/{{year}}</div>
       </div>
       <div class="card-body">
         <div class="check">
           <p>Entrada</p>
-          {{checkIn}}
+          {{cIn.hours()}}:{{cIn.minutes()}}
         </div>
         <div class="divider">|</div>
         <div class="check">
           <p>Salida</p>
-          {{checkOut}}
+          {{cOut.hours()}}:{{cOut.minutes()}}
         </div>
       </div>
     </div>
   </div>
 </template>
 
-    <script>
+<script>
+import moment from "moment";
 export default {
   name: "KCard",
   props: {
-    date: {
-      type: String
-    },
     checkIn: {
-      type: String,
-      default: "--:--"
+      type: Number,
+      default: null
     },
     checkOut: {
-      type: String,
-      default: "--:--"
+      type: Number,
+      default: null
     }
   },
   data() {
-    return {};
+    return {
+      day: moment.unix(this.checkIn).toObject().date,
+      month: moment.unix(this.checkIn).toObject().months + 1,
+      year: moment.unix(this.checkIn).toObject().years,
+      cIn: moment.unix(this.checkIn),
+      cOut: moment.unix(this.checkOut)
+    };
   },
   methods: {}
 };
