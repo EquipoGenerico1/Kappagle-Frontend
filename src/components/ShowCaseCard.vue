@@ -24,7 +24,7 @@
 <script>
 import moment from "moment";
 export default {
-  name: "KCard",
+  name: "KShowcaseCard",
   props: {
     checkIn: {
       type: Number,
@@ -61,6 +61,8 @@ export default {
   background-color: white;
   height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
   border-radius: 5px;
   -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
@@ -84,8 +86,11 @@ export default {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  flex-direction: column;
+  flex-basis: 100%;
 }
 .check {
+  flex-basis: 30%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -102,7 +107,7 @@ p {
 }
 .divider {
   background-color: rgba(128, 128, 128, 0.5);
-  width: 1px;
-  height: 20px;
+  width: 90%;
+  height: 1px;
 }
 </style>

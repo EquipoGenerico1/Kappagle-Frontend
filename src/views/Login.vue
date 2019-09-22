@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="button-login">
-      <KButton class="button" value="login" @click="login"></KButton>
+      <KButton class="button" value="Acceder" @click="login"></KButton>
     </div>
   </div>
 </template>

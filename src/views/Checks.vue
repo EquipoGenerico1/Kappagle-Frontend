@@ -1,15 +1,16 @@
 <template>
   <div class="checks">
     <div class="today-check">
-      <KCard class="today-card"></KCard>
+      <KShowCaseCard class="today-card" id="today-card"></KShowCaseCard>
     </div>
-    <div :class="!showMore ? 'show-more-margin' : 'not-show-more-margin'" class="show-more">
+    <KButton class="check-button button" value="Check In"></KButton>
+    <div :class="showMore ? 'show-more-margin' : null" class="show-more">
       <KButton
-        v-scroll-to="'#list'"
+        v-scroll-to="showMore ? '#list' : '#today-card'"
         class="show-more-button"
-        :value="showMore? 'Show less' : 'Show more'"
+        :value="showMore ? 'Ocultar Historial' : 'Mostrar Historial'"
         alt="true"
-        @click="showMore = !showMore"
+        @click="showMore = !showMore; getChecks()"
       ></KButton>
     </div>
     <div class="list" id="list" v-if="showMore">
@@ -21,7 +22,6 @@
         class="mcards"
       ></KCard>
     </div>
-    <KButton class="check-button button" value="Check In"></KButton>
   </div>
 </template>
 
@@ -29,13 +29,15 @@
 // @ is an alias to /src
 import KButton from "../components/Button";
 import KCard from "../components/CheckCard";
+import KShowCaseCard from "../components/ShowCaseCard";
 import axios from "../helpers/axios";
 
 export default {
   name: "Checks",
   components: {
     KButton,
-    KCard
+    KCard,
+    KShowCaseCard
   },
   data() {
     return {
@@ -46,18 +48,18 @@ export default {
   },
   methods: {
     getChecks() {
-      axios
-        .checks()
-        .then(res => {
-          this.moreCheckIns = res.data;
-          console.log(res);
-        })
-        .catch(err => console.log(err));
+      if (this.showMore) {
+        axios
+          .checks()
+          .then(res => {
+            this.moreCheckIns = res.data;
+            this.showMore = true;
+          })
+          .catch(err => console.log(err));
+      }
     }
   },
-  created: function() {
-    this.getChecks();
-  }
+  created: function() {}
 };
 </script>
 
@@ -78,23 +80,20 @@ export default {
   height: inherit;
 }
 .button {
-  flex-basis: 100%;
+  margin-top: 5px;
+  flex-basis: calc(100% - 10px);
   height: 80px;
 }
 .check-button {
-  position: fixed;
-  left: 5px;
-  bottom: 5px;
   width: calc(100% - 10px);
 }
-.list,
-.show-more-margin {
+.list {
   margin-top: 5px;
   width: 100%;
-  margin-bottom: 90px;
 }
-.not-show-more-margin {
+.show-more-margin {
   margin-top: 10px;
+  width: 100%;
 }
 .show-more {
   height: 50px;
