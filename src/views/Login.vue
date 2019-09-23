@@ -3,6 +3,7 @@
     <h1>Login</h1>
     <div class="user-pass">
       <div class="login-email">
+        <p class="error" v-if="warning==true">Usuario o contraseña incorrecto</p>
         <label>Email</label>
         <div class="input-email">
           <p class="icon-email">
@@ -40,7 +41,8 @@ export default {
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      warning: false
     };
   },
   methods: {
@@ -52,7 +54,7 @@ export default {
           this.$router.push({ path: "checks", query: {} }).catch(() => {});
         })
         .catch(error => {
-          console.log(error);
+          this.warning = true;
         });
     }
   }
