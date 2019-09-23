@@ -7,13 +7,7 @@
       <div class="card-body">
         <div class="check">
           <p>Entrada</p>
-          <div v-if="checkIn">{{parseDate(cIn.hours())}}:{{parseDate(cIn.minutes())}}</div>
-          <div v-else>--:--</div>
-        </div>
-        <div class="divider"></div>
-        <div class="check">
-          <p>Salida</p>
-          <div v-if="checkOut">{{parseDate(cOut.hours())}}:{{parseDate(cOut.minutes())}}</div>
+          <div v-if="checkIn != 1">{{parseDate(cIn.hours)}}:{{parseDate(cIn.minutes)}}</div>
           <div v-else>--:--</div>
         </div>
       </div>
@@ -24,24 +18,31 @@
 <script>
 import moment from "moment";
 export default {
-  name: "KCard",
+  name: "KShowcaseCard",
   props: {
     checkIn: {
       type: Number,
-      default: null
-    },
-    checkOut: {
-      type: Number,
-      default: null
+      default: 1
     }
   },
   data() {
     return {
-      day: this.parseDate(moment.unix(this.checkIn).toObject().date),
-      month: this.parseDate(moment.unix(this.checkIn).toObject().months + 1),
-      year: this.parseDate(moment.unix(this.checkIn).toObject().years),
-      cIn: moment.unix(this.checkIn),
-      cOut: moment.unix(this.checkOut)
+      day: this.parseDate(
+        moment
+          .unix(this.checkIn != 1 ? this.checkIn : moment().unix())
+          .toObject().date
+      ),
+      month: this.parseDate(
+        moment
+          .unix(this.checkIn != 1 ? this.checkIn : moment().unix())
+          .toObject().months + 1
+      ),
+      year: this.parseDate(
+        moment
+          .unix(this.checkIn != 1 ? this.checkIn : moment().unix())
+          .toObject().years
+      ),
+      cIn: moment.unix(this.checkIn).toObject()
     };
   },
   methods: {
@@ -61,6 +62,8 @@ export default {
   background-color: white;
   height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
   border-radius: 5px;
   -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
@@ -84,8 +87,11 @@ export default {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  flex-direction: column;
+  flex-basis: 100%;
 }
 .check {
+  flex-basis: 30%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -102,7 +108,7 @@ p {
 }
 .divider {
   background-color: rgba(128, 128, 128, 0.5);
-  width: 1px;
-  height: 20px;
+  width: 90%;
+  height: 1px;
 }
 </style>

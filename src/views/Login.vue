@@ -2,21 +2,21 @@
   <div class="login">
     <h1>Login</h1>
     <div class="user-pass">
-        <div class="login-email">
-          <label>Email</label>
-          <div class="input email">
-            <input type="text" name ="email" v-model="email">
-          </div>
+      <div class="login-email">
+        <label>Email</label>
+        <div class="input email">
+          <input type="text" name="email" v-model="email" />
         </div>
-        <div class="login-pass">
-          <label>Password</label>
-          <div class="input pass">
-            <input type="password" name ="password" v-model="password">
-          </div>
+      </div>
+      <div class="login-pass">
+        <label>Password</label>
+        <div class="input pass">
+          <input type="password" name="password" v-model="password" />
         </div>
+      </div>
     </div>
     <div class="button-login">
-      <KButton class="button" value="login" @click="login"></KButton>
+      <KButton class="button" value="Acceder" @click="login"></KButton>
     </div>
   </div>
 </template>
@@ -39,18 +39,15 @@ export default {
   },
   methods: {
     login: function() {
-      axios.post("http://localhost:5000/api/v1/login", {
-        email: this.email,
-        password: this.password
-      }).then(res => {
-        localStorage.setItem("token", JSON.stringify(res.data));
-        this.$router
-        .push({ path: "checks", query: {} })
-        .catch(() => {});
-      }).catch(error => {
-        console.log(error);
-      });
-
+      requests
+        .login(this.email, this.password)
+        .then(res => {
+          localStorage.setItem("token", JSON.stringify(res.data));
+          this.$router.push({ path: "checks", query: {} }).catch(() => {});
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   }
 };
@@ -110,5 +107,4 @@ input {
 input:focus {
   border: 1px solid #555;
 }
-
 </style>

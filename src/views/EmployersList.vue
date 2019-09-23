@@ -12,18 +12,32 @@
       </div>
     </div>
     <div id="employers-cards">
-      <NCard class="users" v-for="card in 15"></NCard>
+      <NCard class="users" v-for="user in users" :name="user.name" :key="user._id"></NCard>
     </div>
   </div>
 </template>
 
 <script>
 import NCard from "../components/NamesCards";
+import axios from "../helpers/axios";
 
 export default {
   name: "EmployersList",
   components: {
     NCard
+  },
+  data() {
+    return {
+      users: []
+    };
+  },
+  created: function() {
+    axios
+      .getUsers()
+      .then(res => {
+        this.users = res.data;
+      })
+      .catch(err => {});
   }
 };
 </script>
@@ -86,7 +100,6 @@ export default {
 #employers-cards {
   display: flex;
   width: 100%;
-  background-color: white;
   flex-direction: column;
 }
 </style>
