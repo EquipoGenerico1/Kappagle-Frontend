@@ -4,7 +4,7 @@
       <button id="seach-button">
         <font-awesome-icon icon="search" />
       </button>
-      <input type="search" id="mySearch" placeholder="Buscar empleado..." />
+      <input v-model="search" type="search" id="mySearch" placeholder="Buscar empleado..." />
       <div id="space-for-add-button">
         <button id="add-button">
           <font-awesome-icon icon="user-plus" />
@@ -28,7 +28,8 @@ export default {
   },
   data() {
     return {
-      users: []
+      users: [],
+      search: ""
     };
   },
   created: function() {
@@ -38,6 +39,18 @@ export default {
         this.users = res.data;
       })
       .catch(err => {});
+  },
+  watch: {
+    search: function() {
+      axios
+        .getUsers(this.search)
+        .then(res => {
+          console.log(res);
+
+          this.users = res.data;
+        })
+        .catch(err => {});
+    }
   }
 };
 </script>

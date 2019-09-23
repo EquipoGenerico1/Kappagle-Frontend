@@ -39,11 +39,14 @@ var requests = {
                 Authorization: `Bearer ${token["access_token"]}`
             }
         });
-    }, getUsers() {
+    }, getUsers(name = "") {
         let token = JSON.parse(localStorage.getItem("token"));
         return axios.get(`${url}/users`, {
+            params: {
+                name
+            },
             headers: {
-                Authorization: `Bearer ${token["access_token"]}`
+                Authorization: `Bearer ${token["access_token"]}`,
             }
         });
     }
