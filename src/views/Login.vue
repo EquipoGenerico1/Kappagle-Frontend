@@ -4,14 +4,16 @@
     <div class="user-pass">
         <div class="login-email">
           <label>Email</label>
-          <div class="input email">
-            <input type="text" name ="email" v-model="email">
+          <div class="input-email">
+            <p class="icon-email"><font-awesome-icon icon="user"/></p>
+            <input type="text" name ="email" placeholder="Email..." v-model="email">
           </div>
         </div>
         <div class="login-pass">
           <label>Password</label>
-          <div class="input pass">
-            <input type="password" name ="password" v-model="password">
+          <div class="input-pass">
+            <p class="icon-pass"><font-awesome-icon icon="lock"/></p>
+            <input type="password" name ="password" placeholder="Pass..." v-model="password">
           </div>
         </div>
     </div>
@@ -64,6 +66,7 @@ export default {
   position: fixed;
   left: 5px;
   bottom: 5px;
+  font-size: 25px;
 }
 /**/
 h1 {
@@ -75,6 +78,7 @@ h1 {
   line-height: 1.5em;
   margin-bottom: 1.2em;
   margin-top: 0.2em;
+  font-weight: lighter;
 }
 .login {
   font-family: sans-serif;
@@ -84,9 +88,14 @@ h1 {
   align-content: center;
   padding: 5%;
   margin: 0;
+  font-size: 20px;
 }
 .login-email {
-  margin-bottom: 1.2em;
+  margin-bottom: 2em;
+  position: relative;
+}
+.login-pass {
+  position: relative;
 }
 label {
   display: flex;
@@ -95,7 +104,6 @@ label {
 
 .user-pass {
   padding: 5%;
-  box-shadow: 0px 1px 1px gray;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -105,10 +113,20 @@ input {
   border: none;
   border-bottom: 1px solid gray;
   border-radius: 4px;
-  height: 30px;
+  height: 60px;
+  width: 100%;
+  font-size: 25px;
+  padding: 10px;
+  padding-left: 40px;
 }
 input:focus {
   border: 1px solid #555;
+}
+
+.icon-email, .icon-pass {
+  position: absolute;
+  bottom: 20px;
+  padding-left: 10px;
 }
 
 </style>
