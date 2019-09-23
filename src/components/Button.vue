@@ -1,6 +1,10 @@
 <template>
   <div class="k-button">
-    <button :class="alt == 'true' ? 'alt' : null" @click="emitClick">{{value}}</button>
+    <button
+      class="btn"
+      :class="alt == 'true' ? 'alt' : null"
+      @click="emitClick"
+    >{{value.toUpperCase()}}</button>
   </div>
 </template>
 
@@ -41,11 +45,12 @@ button {
   -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.5);
   box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.5);
 }
-
 button:active {
   transform: scale(1.025);
 }
-
+.btn {
+  font-weight: 700;
+}
 .alt {
   background-color: #eb8334;
   border: 0;
