@@ -23,7 +23,7 @@ const router = new Router({
       component: Login,
       beforeEnter: (to, from, next) => {
         if (isLogged()) {
-          next('/checks');
+          next('');
         } else {
           next();
         }

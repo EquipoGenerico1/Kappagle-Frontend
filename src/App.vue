@@ -2,11 +2,18 @@
   <div id="app">
     <div class="navbar" :class="!showNav ? 'shadow' : null" v-if="page">
       <div class="nav-title">{{page}}</div>
-      <div class="nav-icon" @click="showNav = !showNav">
+      <div class="nav-icon" @click="showNav = !showNav" v-if="role == 'ROLE_ADMIN'">
         <font-awesome-icon icon="bars" class="menu-icon" />
       </div>
+      <div class="nav-icon" v-else>
+        <font-awesome-icon icon="user" class="menu-icon" />
+      </div>
     </div>
-    <div class="navbar-menu" v-if="showNav" :class="showNav ? 'shadow' : null">
+    <div
+      class="navbar-menu"
+      v-if="showNav && role == 'ROLE_ADMIN'"
+      :class="showNav ? 'shadow' : null"
+    >
       <div class="menu-item" @click="showNav = false">
         <router-link to="/checks">Fichar</router-link>
       </div>
@@ -15,16 +22,15 @@
         <router-link to="/users">Empleados</router-link>
       </div>
       <div class="divider"></div>
-      <div class="menu-item">Mi Perfil</div>
-      <div class="divider"></div>
-      <div class="menu-item">Cerrar Sesión</div>
+      <!-- <div class="menu-item">Mi Perfil</div>
+      <div class="divider"></div>-->
+      <div class="menu-item" @click="logOut()">Cerrar Sesión</div>
     </div>
     <router-view :id="page ? 'view': 'login'"></router-view>
   </div>
 </template>
 
 <script>
-import { log } from "util";
 // @ is an alias to /src
 export default {
   name: "app",
@@ -32,7 +38,8 @@ export default {
   data() {
     return {
       showNav: false,
-      page: null
+      page: null,
+      role: this.getRole()
     };
   },
   methods: {
@@ -46,10 +53,23 @@ export default {
           this.page = "Empleados";
           break;
       }
+    },
+    getRole() {
+      let token = JSON.parse(localStorage.getItem("token"));
+      if (token.role) {
+        return token.role;
+      } else {
+        return null;
+      }
+    },
+    logOut() {
+      localStorage.removeItem("token");
+      this.page = null;
+      this.showNav = false;
+      this.$router.push("/login");
     }
   },
   created: function() {
-    console.log(this.$router.history);
     this.setViewName(this.$router.history.current.name);
   },
   updated: function() {

@@ -7,13 +7,7 @@
       <div class="card-body">
         <div class="check">
           <p>Entrada</p>
-          <div v-if="checkIn">{{parseDate(cIn.hours())}}:{{parseDate(cIn.minutes())}}</div>
-          <div v-else>--:--</div>
-        </div>
-        <div class="divider"></div>
-        <div class="check">
-          <p>Salida</p>
-          <div v-if="checkOut">{{parseDate(cOut.hours())}}:{{parseDate(cOut.minutes())}}</div>
+          <div v-if="checkIn != 1">{{parseDate(cIn.hours)}}:{{parseDate(cIn.minutes)}}</div>
           <div v-else>--:--</div>
         </div>
       </div>
@@ -28,20 +22,27 @@ export default {
   props: {
     checkIn: {
       type: Number,
-      default: null
-    },
-    checkOut: {
-      type: Number,
-      default: null
+      default: 1
     }
   },
   data() {
     return {
-      day: this.parseDate(moment.unix(this.checkIn).toObject().date),
-      month: this.parseDate(moment.unix(this.checkIn).toObject().months + 1),
-      year: this.parseDate(moment.unix(this.checkIn).toObject().years),
-      cIn: moment.unix(this.checkIn),
-      cOut: moment.unix(this.checkOut)
+      day: this.parseDate(
+        moment
+          .unix(this.checkIn != 1 ? this.checkIn : moment().unix())
+          .toObject().date
+      ),
+      month: this.parseDate(
+        moment
+          .unix(this.checkIn != 1 ? this.checkIn : moment().unix())
+          .toObject().months + 1
+      ),
+      year: this.parseDate(
+        moment
+          .unix(this.checkIn != 1 ? this.checkIn : moment().unix())
+          .toObject().years
+      ),
+      cIn: moment.unix(this.checkIn).toObject()
     };
   },
   methods: {

@@ -1,9 +1,19 @@
 <template>
   <div class="checks">
     <div class="today-check">
-      <KShowCaseCard class="today-card" id="today-card"></KShowCaseCard>
+      <KShowCaseCard
+        v-if="todayCheckIn"
+        class="today-card"
+        id="today-card"
+        :checkIn="todayCheckIn"
+        :key="todayCheckIn"
+      ></KShowCaseCard>
     </div>
-    <KButton class="check-button button" value="Check In"></KButton>
+    <KButton
+      class="check-button button"
+      :value="todayCheckIn != 1 ? 'CHECK OUT' : 'CHECK IN'"
+      @click="todayCheckIn != 1 ?  checkOut() : checkIn()"
+    ></KButton>
     <div :class="showMore ? 'show-more-margin' : null" class="show-more">
       <KButton
         v-scroll-to="showMore ? '#list' : '#today-card'"
@@ -42,11 +52,21 @@ export default {
   data() {
     return {
       showMore: false,
-      todayCheckIn: {},
+      todayCheckIn: null,
       moreCheckIns: []
     };
   },
   methods: {
+    getCurrentCheck() {
+      axios
+        .currentCheck()
+        .then(res => {
+          this.todayCheckIn = res.data.checkIn;
+        })
+        .catch(err => {
+          this.todayCheckIn = 1;
+        });
+    },
     getChecks() {
       if (this.showMore) {
         axios
@@ -55,11 +75,26 @@ export default {
             this.moreCheckIns = res.data;
             this.showMore = true;
           })
-          .catch(err => console.log(err));
+          .catch(err => {});
       }
+    },
+    checkIn() {
+      axios.checkIn().then(res => {
+        this.todayCheckIn = res.data.checkIn;
+      });
+    },
+    checkOut() {
+      axios
+        .checkOut()
+        .then(res => {
+          this.todayCheckIn = 1;
+        })
+        .catch(err => {});
     }
   },
-  created: function() {}
+  created: function() {
+    this.getCurrentCheck();
+  }
 };
 </script>
 
