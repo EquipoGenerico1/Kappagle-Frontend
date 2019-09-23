@@ -4,25 +4,27 @@ import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 import SignUp from './views/SignUp.vue'
 import Checks from './views/Checks.vue'
-import {isLogged, getRole} from './helpers/role'
+import { isLogged, getRole } from './helpers/role'
 import EmployersList from './views/EmployersList.vue'
 
 Vue.use(Router)
 
 const router = new Router({
+  mode: 'history',
+  base: process.env.BASE_URL,
   routes: [
     {
       path: '/',
-      redirect: 'login'
+      redirect: 'checks'
     },
     {
       path: '/login',
       name: 'login',
       component: Login,
       beforeEnter: (to, from, next) => {
-        if(isLogged()){
+        if (isLogged()) {
           next('/checks');
-        }else{
+        } else {
           next();
         }
       }
@@ -37,9 +39,9 @@ const router = new Router({
       name: 'home',
       component: Home,
       beforeEnter: (to, from, next) => {
-        if(isLogged()){
+        if (isLogged()) {
           next();
-        }else{
+        } else {
           next('/login')
         }
       }
@@ -47,11 +49,11 @@ const router = new Router({
     {
       path: '/checks',
       name: 'checks',
-      component: Checks,
+      component: () => import('./views/Checks.vue'),
       beforeEnter: (to, from, next) => {
-        if(isLogged()){
+        if (isLogged()) {
           next();
-        }else{
+        } else {
           next('/login')
         }
       }
@@ -60,10 +62,10 @@ const router = new Router({
       path: '/users',
       name: 'users',
       component: EmployersList
-      ,beforeEnter: (to, from, next) => {
-        if(getRole() == 'ROLE_ADMIN'){
+      , beforeEnter: (to, from, next) => {
+        if (getRole() == 'ROLE_ADMIN') {
           next();
-        }else{
+        } else {
           next('/login')
         }
       }

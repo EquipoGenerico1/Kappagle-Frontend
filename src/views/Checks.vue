@@ -70,7 +70,6 @@ export default {
   flex-wrap: wrap;
   justify-content: space-evenly;
   padding: 5px;
-  height: 100%;
 }
 .mcards {
   height: 110px;
