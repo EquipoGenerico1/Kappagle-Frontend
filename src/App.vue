@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <div class="navbar" :class="!showNav ? 'shadow' : null" v-if="page">
+    <div class="navbar" :class="!showNav ? 'shadow' : null" v-if="page != null">
       <div class="nav-title">{{page}}</div>
       <div class="nav-icon" @click="showNav = !showNav" v-if="role == 'ROLE_ADMIN'">
         <font-awesome-icon icon="bars" class="menu-icon" />
       </div>
-      <div class="nav-icon" v-else>
+      <div class="nav-icon" @click="showNav = !showNav" v-else>
         <font-awesome-icon icon="user" class="menu-icon" />
       </div>
     </div>
@@ -24,6 +24,13 @@
       <div class="divider"></div>
       <!-- <div class="menu-item">Mi Perfil</div>
       <div class="divider"></div>-->
+      <div class="menu-item" @click="logOut()">Cerrar Sesión</div>
+    </div>
+    <div
+      class="navbar-menu"
+      v-if="showNav && role == 'ROLE_USER'"
+      :class="showNav ? 'shadow' : null"
+    >
       <div class="menu-item" @click="logOut()">Cerrar Sesión</div>
     </div>
     <router-view :id="page ? 'view': 'login'"></router-view>
@@ -56,10 +63,10 @@ export default {
     },
     getRole() {
       let token = JSON.parse(localStorage.getItem("token"));
-      if (token.role) {
+      if (token) {
         return token.role;
       } else {
-        return null;
+        return "";
       }
     },
     logOut() {
