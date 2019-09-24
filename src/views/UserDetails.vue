@@ -1,43 +1,32 @@
 <template>
   <div id="container-master">
-    <div id="search-bar">
-      <button id="seach-button">
-        <font-awesome-icon icon="search" />
-      </button>
-      <input type="search" id="mySearch" placeholder="Buscar empleado..." />
-      <div id="space-for-add-button">
-        <button id="add-button">
-          <font-awesome-icon icon="user-plus" />
-        </button>
-      </div>
-    </div>
-    <div id="employers-cards" @click="goToDetails()">
-      <NCard class="users" v-for="user in users" :name="user.name" :key="user._id"></NCard>
-    </div>
+    {{name}}
+    <br />
+    {{hours}}
   </div>
 </template>
 
 <script>
-import NCard from "../components/NamesCards";
 import axios from "../helpers/axios";
 
 export default {
-  name: "EmployersList",
-  components: {
-    NCard
+  name: "UserDetails",
+  components: {},
+  props: {
+    name: {
+      type: String
+    }
   },
   data() {
     return {
-      users: []
+      hours: 0
     };
   },
   created: function() {
-    axios
-      .getUsers()
-      .then(res => {
-        this.users = res.data;
-      })
-      .catch(err => {});
+    let id = this.$route.params.id;
+    axios.getHoursFromUser(id).then(res => {
+      console.log(res);
+    });
   }
 };
 </script>

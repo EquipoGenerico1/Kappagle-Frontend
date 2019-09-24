@@ -11,6 +11,10 @@ export default {
     name: {
       type: String,
       default: "Paco López García"
+    },
+    hours: {
+      type: String,
+      default: "None"
     }
   },
   data() {

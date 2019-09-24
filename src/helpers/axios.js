@@ -47,6 +47,14 @@ var requests = {
             }
         });
     }
+    , getHoursFromUser(id) {
+        let token = JSON.parse(localStorage.getItem("token"));
+        return axios.get(`${url}/users/${id}/worked-hours?from=1/1/1970&to=24/09/2020`, {
+            headers: {
+                Authorization: `Bearer ${token["access_token"]}`
+            }
+        });
+    }
 
 }
 
