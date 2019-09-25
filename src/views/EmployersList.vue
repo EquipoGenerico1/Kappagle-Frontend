@@ -12,7 +12,7 @@
       </div>
     </div>
     <div id="employers-cards">
-      <NCard class="users" v-for="user in users" :name="user.name" :key="user._id"></NCard>
+      <NCard class="users" v-for="user in filteredUsers" :name="user.name" :key="user._id"></NCard>
     </div>
   </div>
 </template>
@@ -32,6 +32,11 @@ export default {
       search: ""
     };
   },
+  computed: {
+    filteredUsers: function() {
+      return this.users.filter(user => user.name.includes(this.search));
+    }
+  },
   created: function() {
     axios
       .getUsers()
@@ -39,18 +44,6 @@ export default {
         this.users = res.data;
       })
       .catch(err => {});
-  },
-  watch: {
-    search: function() {
-      axios
-        .getUsers(this.search)
-        .then(res => {
-          console.log(res);
-
-          this.users = res.data;
-        })
-        .catch(err => {});
-    }
   }
 };
 </script>
