@@ -32,18 +32,22 @@ export default {
 <style scoped>
 .landing {
   background-color: #fcfcfc;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 #top {
   height: 50%;
 }
 #bottom {
+  margin-top: -95px;
   height: 50%;
   padding: 5px;
+  flex-basis: 100%;
 }
 #timer {
-  position: fixed;
-  bottom: calc(50% - 95px);
-  left: calc(50% - 95px);
+  z-index: 100000;
+  margin-top: -95px;
   width: 190px;
   height: 190px;
 }

@@ -15,7 +15,7 @@
       :class="showNav ? 'shadow' : null"
     >
       <div class="menu-item" @click="showNav = false">
-        <router-link to="/checks">Fichar</router-link>
+        <router-link to="/landing">Fichar</router-link>
       </div>
       <div class="divider"></div>
       <div class="menu-item" @click="showNav = false">
@@ -157,7 +157,7 @@ a {
 /* Ripple effect */
 .ripple {
   background-position: center;
-  transition: background 0.5s;
+  transition: 0.5s;
 }
 .ripple:hover {
   background: #f1f1f1 radial-gradient(circle, transparent 1%, #00000010 1%)
@@ -166,6 +166,6 @@ a {
 .ripple:active {
   background-color: #f1f1f1;
   background-size: 100%;
-  transition: background 0s;
+  transition: 0s;
 }
 </style>

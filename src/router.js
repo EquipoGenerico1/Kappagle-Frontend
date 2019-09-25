@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 import SignUp from './views/SignUp.vue'
-import Checks from './views/Checks.vue'
 import { isLogged, getRole } from './helpers/role'
 import EmployersList from './views/EmployersList.vue'
 
@@ -16,7 +15,7 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      redirect: 'checks'
+      redirect: 'landing'
     },
     {
       path: '/login',
