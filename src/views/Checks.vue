@@ -53,7 +53,10 @@ export default {
     return {
       showMore: false,
       todayCheckIn: null,
-      moreCheckIns: []
+      moreCheckIns: [],
+      lat: null,
+      lon: null,
+      canCheck: false
     };
   },
   methods: {
@@ -78,19 +81,54 @@ export default {
           .catch(err => {});
       }
     },
-    checkIn() {
-      axios.checkIn().then(res => {
-        this.todayCheckIn = res.data.checkIn;
-      });
+    checkLocation() {
+      if (navigator.geolocation) {
+        console.log("geolocation supported");
+        navigator.geolocation.getCurrentPosition(position => {
+          var ll = [position.coords.latitude, position.coords.longitude];
+          var v1 = [28.107019, -15.446851];
+          var v2 = [28.105732, -15.445268];
+          if (
+            ll[0] < v1[0] &&
+            ll[1] > v1[1] &&
+            ll[0] > v2[0] &&
+            ll[1] < v2[1]
+          ) {
+            this.canCheck = true;
+          } else {
+            this.canCheck = false;
+          }
+        });
+      } else {
+        console.log("GEOLOCATION not supported");
+      }
     },
-    checkOut() {
-      axios
-        .checkOut()
-        .then(res => {
-          this.todayCheckIn = 1;
-        })
-        .catch(err => {});
+    async checkIn() {
+      await this.checkLocation();
+      if (this.canCheck) {
+        axios.checkIn().then(res => {
+          this.todayCheckIn = res.data.checkIn;
+        });
+      }
+    },
+    async checkOut() {
+      await this.checkLocation();
+      if (this.canCheck) {
+        axios
+          .checkOut()
+          .then(res => {
+            this.todayCheckIn = 1;
+          })
+          .catch(err => {});
+      }
     }
+  },
+  watch: {
+    // canCheck: function(val) {
+    //   if (val) {
+    //     this.checkIn();
+    //   }
+    // }
   },
   created: function() {
     this.getCurrentCheck();
