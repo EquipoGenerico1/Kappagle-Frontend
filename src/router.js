@@ -7,6 +7,7 @@ import Checks from './views/Checks.vue'
 import { isLogged, getRole } from './helpers/role'
 import EmployersList from './views/EmployersList.vue'
 
+
 Vue.use(Router)
 
 const router = new Router({
@@ -69,6 +70,11 @@ const router = new Router({
           next('/login')
         }
       }
+    },
+    {
+      path: '/landing',
+      name: 'landing',
+      component: () => import('./views/Landing.vue'),
     }
   ]
 })

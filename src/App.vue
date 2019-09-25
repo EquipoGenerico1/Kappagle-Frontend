@@ -154,4 +154,18 @@ a {
   -moz-box-shadow: 0px 2px 5px -1.9px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 2px 5px -1.9px rgba(0, 0, 0, 0.75);
 }
+/* Ripple effect */
+.ripple {
+  background-position: center;
+  transition: background 0.5s;
+}
+.ripple:hover {
+  background: #f1f1f1 radial-gradient(circle, transparent 1%, #00000010 1%)
+    center/15000%;
+}
+.ripple:active {
+  background-color: #f1f1f1;
+  background-size: 100%;
+  transition: background 0s;
+}
 </style>

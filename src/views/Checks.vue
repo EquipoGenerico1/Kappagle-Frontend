@@ -106,9 +106,12 @@ export default {
     async checkIn() {
       await this.checkLocation();
       if (this.canCheck) {
-        axios.checkIn().then(res => {
-          this.todayCheckIn = res.data.checkIn;
-        });
+        axios
+          .checkIn()
+          .then(res => {
+            this.todayCheckIn = res.data.checkIn;
+          })
+          .catch(err => {});
       }
     },
     async checkOut() {
@@ -123,13 +126,7 @@ export default {
       }
     }
   },
-  watch: {
-    // canCheck: function(val) {
-    //   if (val) {
-    //     this.checkIn();
-    //   }
-    // }
-  },
+  watch: {},
   created: function() {
     this.getCurrentCheck();
   }
