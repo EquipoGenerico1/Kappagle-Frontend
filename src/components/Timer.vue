@@ -1,6 +1,6 @@
 <template>
   <div class="k-timer" v-if="checkIn">
-    <div id="time">{{parseDate(cIn.hours())}}:{{parseDate(cIn.minutes())}}</div>
+    <div id="time" v-if="elapsed">{{elapsed}}</div>
   </div>
 </template>
 
@@ -12,25 +12,38 @@ export default {
     checkIn: {
       type: Number,
       default: null
-    },
-    checkOut: {
-      type: Number,
-      default: null
     }
   },
   data() {
     return {
-      day: this.parseDate(moment.unix(this.checkIn).toObject().date),
-      month: this.parseDate(moment.unix(this.checkIn).toObject().months + 1),
-      year: this.parseDate(moment.unix(this.checkIn).toObject().years),
-      cIn: moment.unix(this.checkIn),
-      cOut: moment.unix(this.checkOut)
+      elapsed: "00:00",
+      now: null
     };
   },
   methods: {
     parseDate(number) {
+      number = number.toFixed(0);
       return number < 10 ? "0" + number : number;
+    },
+    setNow() {
+      setInterval(() => {
+        this.now = moment(Date.now());
+      }, 1000 * 60);
     }
+  },
+  watch: {
+    now: function(val) {
+      var duration = moment.duration(
+        moment(val).diff(moment.unix(this.checkIn))
+      );
+      var hours = this.parseDate(duration.asHours());
+      var minutes = this.parseDate(duration.asMinutes());
+      this.elapsed = `${hours}:${minutes}`;
+      console.log(this.elapsed);
+    }
+  },
+  created() {
+    this.setNow();
   }
 };
 </script>

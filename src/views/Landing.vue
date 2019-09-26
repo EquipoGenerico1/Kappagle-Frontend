@@ -1,7 +1,7 @@
 <template>
   <div class="landing">
     <KHours v-if="now" :checkIn="now" id="top"></KHours>
-    <KTimer id="timer" :checkIn="now"></KTimer>
+    <KTimer v-if="now" :checkIn="now" id="timer"></KTimer>
     <div id="bottom">
       <KCheckButton value="Entrada"></KCheckButton>
     </div>
@@ -23,7 +23,7 @@ export default {
   },
   data() {
     return {
-      now: moment().unix()
+      now: moment(Date.now()).unix()
     };
   }
 };
