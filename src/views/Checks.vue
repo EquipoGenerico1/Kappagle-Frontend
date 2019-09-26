@@ -100,7 +100,6 @@ export default {
           }
         });
       } else {
-        console.log("GEOLOCATION not supported");
       }
     },
     async checkIn() {
@@ -112,6 +111,8 @@ export default {
             this.todayCheckIn = res.data.checkIn;
           })
           .catch(err => {});
+      } else {
+        console.log("user cant check in this location");
       }
     },
     async checkOut() {
