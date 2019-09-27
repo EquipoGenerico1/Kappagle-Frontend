@@ -46,6 +46,14 @@ var requests = {
                 Authorization: `Bearer ${token["access_token"]}`
             }
         });
+
+    }, getUser(userId) {
+        let token = JSON.parse(localStorage.getItem("token"));
+        return axios.get(`${url}/users/` + userId, {
+            headers: {
+                Authorization: `Bearer ${token["access_token"]}`
+            }
+        });
     }
 
 }
