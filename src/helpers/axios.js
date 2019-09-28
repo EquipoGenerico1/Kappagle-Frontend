@@ -16,6 +16,14 @@ var requests = {
             }
         });
     },
+    checksFromUser(id) {
+        let token = JSON.parse(localStorage.getItem("token"));
+        return axios.get(`${url}/users/${id}/checks`, {
+            headers: {
+                Authorization: `Bearer ${token["access_token"]}`
+            }
+        });
+    },
     currentCheck() {
         let token = JSON.parse(localStorage.getItem("token"));
         return axios.get(`${url}/users/checks/current-check`, {

@@ -12,7 +12,11 @@
       </div>
     </div>
     <div id="employers-cards">
-      <NCard class="users" v-for="user in filteredUsers" :name="user.name" :key="user._id"></NCard>
+      <div class="x" v-for="user in filteredUsers" :key="user._id">
+        <router-link :to="'/users/' + user._id">
+          <NCard class="users" :name="user.name" :key="user._id"></NCard>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -107,5 +111,8 @@ export default {
   display: flex;
   width: 100%;
   flex-direction: column;
+}
+.users {
+  color: black;
 }
 </style>
