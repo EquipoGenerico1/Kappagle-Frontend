@@ -56,10 +56,12 @@ export default {
     },
     getRole() {
       let token = JSON.parse(localStorage.getItem("token"));
-      if (token.role) {
-        return token.role;
-      } else {
-        return null;
+      try {
+        if (token["role"]) {
+          return token.role;
+        }
+      } catch (error) {
+        return "NO_ROLE";
       }
     },
     logOut() {

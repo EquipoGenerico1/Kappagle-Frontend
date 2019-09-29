@@ -74,6 +74,11 @@ const router = new Router({
       path: '/landing',
       name: 'landing',
       component: () => import('./views/Landing.vue'),
+    },
+    {
+      path: '/history',
+      name: 'history',
+      component: () => import('./views/LoggedHistory.vue'),
     }
   ]
 })

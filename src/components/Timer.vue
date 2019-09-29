@@ -28,18 +28,18 @@ export default {
     setNow() {
       setInterval(() => {
         this.now = moment(Date.now());
-      }, 1000 * 60);
+      }, 10000);
     }
   },
   watch: {
     now: function(val) {
-      var duration = moment.duration(
+      const duration = moment.duration(
         moment(val).diff(moment.unix(this.checkIn))
       );
-      var hours = this.parseDate(duration.asHours());
-      var minutes = this.parseDate(duration.asMinutes());
+      var time = moment(duration)._i._data;
+      var hours = this.parseDate(time.hours);
+      var minutes = this.parseDate(time.minutes);
       this.elapsed = `${hours}:${minutes}`;
-      console.log(this.elapsed);
     }
   },
   created() {
