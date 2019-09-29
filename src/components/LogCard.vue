@@ -43,7 +43,7 @@ export default {
       year: this.parseDate(moment.unix(this.checkIn).toObject().years),
       cIn: moment.unix(this.checkIn),
       cOut: moment.unix(this.checkOut),
-      elapsed: "0,00"
+      elapsed: this.getElapsed()
     };
   },
   methods: {
@@ -52,12 +52,12 @@ export default {
     },
     getElapsed() {
       const duration = moment.duration(
-        moment(this.checkOut).diff(moment.unix(this.checkIn))
+        moment.unix(this.checkOut).diff(moment.unix(this.checkIn))
       );
       var time = moment(duration)._i._data;
       var hours = time.hours;
       var minutes = this.parseDate(time.minutes);
-      this.elapsed = `${hours},${minutes}`;
+      return `${hours}:${minutes}`;
     }
   }
 };

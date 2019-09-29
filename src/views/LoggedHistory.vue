@@ -4,7 +4,7 @@
       <Header></Header>
     </div>
     <div class="body">
-      <LogCard v-for="card in 20" :checkIn="now" :checkOut="now"></LogCard>
+      <LogCard v-for="card in 200" :checkIn="1569744000" :checkOut="now"></LogCard>
     </div>
     <Fab faIcon="file-pdf" />
   </div>
@@ -35,9 +35,9 @@ export default {
 .self-history {
 }
 .header {
-  height: 30%;
+  height: 25%;
 }
 .body {
-  height: 70%;
+  height: 75%;
 }
 </style>
