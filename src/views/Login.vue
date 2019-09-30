@@ -1,30 +1,36 @@
 <template>
-  <div class="login">
-    <h1>Login</h1>
-    <div class="user-pass">
-      <div class="login-email">
-        <p class="error" v-if="warning==true">Usuario o contraseña incorrecto</p>
-        <label>Email</label>
-        <div class="input-email">
-          <p class="icon-email">
-            <font-awesome-icon icon="user" />
-          </p>
-          <input type="text" name="email" placeholder="Email..." v-model="email" />
+  <div id="login">
+    
+    <h1 class="h1">Login</h1>
+
+    <div class="form">
+
+      <div class="form_content">
+        <label class="label" for="email">Correo electrónico</label>
+        <div class="form_input">
+          <span class="form_icon">
+            <font-awesome-icon icon="envelope" />
+          </span>
+          <input id="email" class="input shadow-sm" :class="{error_input:warning}" type="text" name="email" placeholder="Introduce el correo..." v-model="email" />
         </div>
       </div>
-      <div class="login-pass">
-        <label>Password</label>
-        <div class="input-pass">
-          <p class="icon-pass">
+
+      <div class="form_content">
+        <label class="label" for="password">Contraseña</label>
+        <div class="form_input">
+          <span class="form_icon">
             <font-awesome-icon icon="lock" />
-          </p>
-          <input type="password" name="password" placeholder="Pass..." v-model="password" />
+          </span>
+          <input id="password" class="input shadow-sm" :class="{error_input:warning}" type="password" name="password" placeholder="Introduce la contraseña..." v-model="password" autocomplete="off" />
         </div>
       </div>
+      <p class="error" v-if="warning">Usuario o contraseña incorrecto</p>
     </div>
+
     <div class="button-login">
       <KButton class="button" value="Acceder" @click="login"></KButton>
     </div>
+
   </div>
 </template>
 
@@ -62,76 +68,81 @@ export default {
 </script>
 
 <style scoped>
-.button {
-  flex-basis: 100%;
-  height: 10vh;
-  width: calc(100% - 10px);
-  position: fixed;
-  left: 5px;
-  bottom: 5px;
-  font-size: 25px;
-}
-/**/
-h1 {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  font-weight: 700;
-  text-align: center;
-  line-height: 1.5em;
-  margin-bottom: 1.2em;
-  font-weight: lighter;
-}
-.login {
+
+#login {
+  padding: .5rem;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   align-content: center;
-  padding: 5%;
-  margin: 0;
   font-size: 20px;
 }
-.login-email {
-  margin-bottom: 2em;
-  position: relative;
-}
-.login-pass {
-  position: relative;
-}
-label {
-  display: flex;
-  margin-bottom: 1em;
+
+.h1 {
+  width: 100%;
+  margin-bottom: 1.2em;
+  text-align: center;
+  font-weight: lighter;
 }
 
-.user-pass {
+.form {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-input {
-  border: none;
-  border-bottom: 1px solid gray;
-  border-radius: 4px;
-  height: 60px;
+
+.form_content {
   width: 100%;
-  font-size: 25px;
-  padding: 10px;
+  margin-bottom: 2em;
+  position: relative;
+}
+
+.form_input{
+  width: 100%;
+}
+
+.label {
+  margin-bottom: 1rem;
+  display: block;
+  font-size: 20px;
+}
+
+.input {
+  width: 100%;
+  padding: 1rem;
   padding-left: 40px;
-}
-input:focus {
-  border: 1px solid #555;
+  border-radius: 4px;
+  border: 1px solid #2A6CF1;
+  outline: 0;
+  font-size: 18px;
 }
 
-.icon-email,
-.icon-pass {
+.input::placeholder,
+.input:-moz-placeholder,
+.input:-ms-input-placeholder,
+.input::-webkit-input-placeholder {
+  color:#A8A8A8;
+}
+
+.input:focus {
+  border-color: rgb(33, 84, 185);
+  transition: .5s;
+}
+
+.form_icon {
   position: absolute;
-  bottom: 20px;
-  padding-left: 10px;
+  left: .6rem;
+  bottom: 1rem;
+  color:#A8A8A8;
 }
 
-.button-login {
-  padding: 5%;
+.button {
+  width: calc(100% - 1rem);
+  height: 4rem;
+  position: fixed;
+  left: .5rem;
+  bottom: .5rem;
+  font-size: 30px;
 }
 
 @media (min-width: 550px) {
@@ -144,4 +155,17 @@ input:focus {
     align-content: center;
   }
 }
+
+.shadow-sm {
+ box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.32);
+}
+
+.error {
+  color: #DF4747;
+}
+
+.error_input {
+  border-color: #DF4747;
+}
+
 </style>
