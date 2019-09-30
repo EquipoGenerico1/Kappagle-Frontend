@@ -1,17 +1,23 @@
 <template>
   <div id="login">
-    
     <h1 class="h1">Login</h1>
 
     <div class="form">
-
       <div class="form_content">
         <label class="label" for="email">Correo electrónico</label>
         <div class="form_input">
           <span class="form_icon">
             <font-awesome-icon icon="envelope" />
           </span>
-          <input id="email" class="input shadow-sm" :class="{error_input:warning}" type="text" name="email" placeholder="Introduce el correo..." v-model="email" />
+          <input
+            id="email"
+            class="input shadow-sm"
+            :class="{error_input:warning}"
+            type="text"
+            name="email"
+            placeholder="Introduce el correo..."
+            v-model="email"
+          />
         </div>
       </div>
 
@@ -21,7 +27,16 @@
           <span class="form_icon">
             <font-awesome-icon icon="lock" />
           </span>
-          <input id="password" class="input shadow-sm" :class="{error_input:warning}" type="password" name="password" placeholder="Introduce la contraseña..." v-model="password" autocomplete="off" />
+          <input
+            id="password"
+            class="input shadow-sm"
+            :class="{error_input:warning}"
+            type="password"
+            name="password"
+            placeholder="Introduce la contraseña..."
+            v-model="password"
+            autocomplete="off"
+          />
         </div>
       </div>
       <p class="error" v-if="warning">Usuario o contraseña incorrecto</p>
@@ -30,7 +45,6 @@
     <div class="button-login">
       <KButton class="button" value="Acceder" @click="login"></KButton>
     </div>
-
   </div>
 </template>
 
@@ -68,9 +82,8 @@ export default {
 </script>
 
 <style scoped>
-
 #login {
-  padding: .5rem;
+  padding: 0.5rem;
   display: flex;
   flex-wrap: wrap;
   align-content: center;
@@ -97,7 +110,7 @@ export default {
   position: relative;
 }
 
-.form_input{
+.form_input {
   width: 100%;
 }
 
@@ -112,7 +125,7 @@ export default {
   padding: 1rem;
   padding-left: 40px;
   border-radius: 4px;
-  border: 1px solid #2A6CF1;
+  border: 1px solid #2a6cf1;
   outline: 0;
   font-size: 18px;
 }
@@ -121,51 +134,49 @@ export default {
 .input:-moz-placeholder,
 .input:-ms-input-placeholder,
 .input::-webkit-input-placeholder {
-  color:#A8A8A8;
+  color: #a8a8a8;
 }
 
 .input:focus {
   border-color: rgb(33, 84, 185);
-  transition: .5s;
+  transition: 0.5s;
 }
 
 .form_icon {
   position: absolute;
-  left: .6rem;
+  left: 0.6rem;
   bottom: 1rem;
-  color:#A8A8A8;
+  color: #a8a8a8;
 }
 
 .button {
   width: calc(100% - 1rem);
   height: 4rem;
   position: fixed;
-  left: .5rem;
-  bottom: .5rem;
+  left: 0.5rem;
+  bottom: 0.5rem;
   font-size: 30px;
 }
 
 @media (min-width: 550px) {
+  #login,
   .button {
-    position: static;
-    width: 400px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: center;
+    position: absolute;
+    width: 500px;
+    left: 50%;
+    margin: 0 0 0 -250px;
   }
 }
 
 .shadow-sm {
- box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.32);
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.32);
 }
 
 .error {
-  color: #DF4747;
+  color: #df4747;
 }
 
 .error_input {
-  border-color: #DF4747;
+  border-color: #df4747;
 }
-
 </style>
