@@ -79,13 +79,15 @@ export default {
 
 <style>
 @import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+
 html,
 body,
 #app {
   font-family: "Roboto", sans-serif;
   height: 100%;
-  background-color: #f2f2f2;
+  background-color: #FCFCFC;
 }
+
 * {
   margin: 0;
   padding: 0;
