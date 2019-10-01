@@ -49,6 +49,15 @@ var requests = {
                 Authorization: `Bearer ${token["access_token"]}`,
             }
         });
+    }, editUser(data) {
+        let token = JSON.parse(localStorage.getItem("token"));
+        return axios.post(`${url}/users/edit`, {
+            [data]: data,
+        }, {
+            headers: {
+                Authorization: `Bearer ${token["access_token"]}`
+            }
+        });
     }
 
 }

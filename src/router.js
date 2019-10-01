@@ -6,6 +6,7 @@ import SignUp from './views/SignUp.vue'
 import Checks from './views/Checks.vue'
 import { isLogged, getRole } from './helpers/role'
 import EmployersList from './views/EmployersList.vue'
+import myProfile from './views/MyProfile.vue'
 
 Vue.use(Router)
 
@@ -64,6 +65,18 @@ const router = new Router({
       component: EmployersList
       , beforeEnter: (to, from, next) => {
         if (getRole() == 'ROLE_ADMIN') {
+          next();
+        } else {
+          next('/login')
+        }
+      }
+    },
+    {
+      path: '/MyProfile',
+      name: 'myProfile',
+      component: myProfile,
+      beforeEnter: (to, from, next) => {
+        if (isLogged()) {
           next();
         } else {
           next('/login')
