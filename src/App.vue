@@ -48,7 +48,6 @@ export default {
         case "landing":
           this.page = "Fichar";
           break;
-
         case "users":
           this.page = "Empleados";
           break;
@@ -92,8 +91,9 @@ body,
 #app {
   font-family: "Roboto", sans-serif;
   height: 100%;
-  background-color: #f2f2f2;
+  background-color: #fcfcfc;
 }
+
 * {
   margin: 0;
   padding: 0;
@@ -103,7 +103,6 @@ a {
   color: white;
   text-decoration: none;
 }
-
 #login {
   height: 100%;
 }

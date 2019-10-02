@@ -32,8 +32,14 @@ export default {
   },
   data() {
     return {
-      users: []
+      users: [],
+      search: ""
     };
+  },
+  computed: {
+    filteredUsers: function() {
+      return this.users.filter(user => user.name.includes(this.search));
+    }
   },
   created: function() {
     axios

@@ -1,20 +1,47 @@
 <template>
-  <div class="login">
-    <h1>Login</h1>
-    <div class="user-pass">
-      <div class="login-email">
-        <label>Email</label>
-        <div class="input email">
-          <input type="text" name="email" v-model="email" />
+  <div id="login">
+    <h1 class="h1">Login</h1>
+
+    <div class="form">
+      <div class="form_content">
+        <label class="label" for="email">Correo electrónico</label>
+        <div class="form_input">
+          <span class="form_icon">
+            <font-awesome-icon icon="envelope" />
+          </span>
+          <input
+            id="email"
+            class="input shadow-sm"
+            :class="{error_input:warning}"
+            type="text"
+            name="email"
+            placeholder="Introduce el correo..."
+            v-model="email"
+          />
         </div>
       </div>
-      <div class="login-pass">
-        <label>Password</label>
-        <div class="input pass">
-          <input type="password" name="password" v-model="password" />
+
+      <div class="form_content">
+        <label class="label" for="password">Contraseña</label>
+        <div class="form_input">
+          <span class="form_icon">
+            <font-awesome-icon icon="lock" />
+          </span>
+          <input
+            id="password"
+            class="input shadow-sm"
+            :class="{error_input:warning}"
+            type="password"
+            name="password"
+            placeholder="Introduce la contraseña..."
+            v-model="password"
+            autocomplete="off"
+          />
         </div>
       </div>
+      <p class="error" v-if="warning">Usuario o contraseña incorrecto</p>
     </div>
+
     <div class="button-login">
       <KButton class="button" value="Acceder" @click="login"></KButton>
     </div>
@@ -34,7 +61,8 @@ export default {
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      warning: false
     };
   },
   methods: {
@@ -46,7 +74,7 @@ export default {
           this.$router.push({ path: "landing", query: {} }).catch(() => {});
         })
         .catch(error => {
-          console.log(error);
+          this.warning = true;
         });
     }
   }
@@ -54,57 +82,101 @@ export default {
 </script>
 
 <style scoped>
-.button {
-  flex-basis: 100%;
-  height: 10vh;
-  width: calc(100% - 10px);
-  position: fixed;
-  left: 5px;
-  bottom: 5px;
-}
-/**/
-h1 {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  font-weight: 700;
-  text-align: center;
-  line-height: 1.5em;
-  margin-bottom: 1.2em;
-  margin-top: 0.2em;
-}
-.login {
-  font-family: sans-serif;
+#login {
+  padding: 0.5rem;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   align-content: center;
-  padding: 5%;
-  margin: 0;
-}
-.login-email {
-  margin-bottom: 1.2em;
-}
-label {
-  display: flex;
-  margin-bottom: 1em;
+  font-size: 20px;
 }
 
-.user-pass {
-  padding: 5%;
-  box-shadow: 0px 1px 1px gray;
+.h1 {
+  width: 100%;
+  margin-bottom: 1.2em;
+  text-align: center;
+  font-weight: lighter;
+}
+
+.form {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-input {
-  border: none;
-  border-bottom: 1px solid gray;
-  border-radius: 4px;
-  height: 30px;
+
+.form_content {
+  width: 100%;
+  margin-bottom: 2em;
+  position: relative;
 }
-input:focus {
-  border: 1px solid #555;
+
+.form_input {
+  width: 100%;
+}
+
+.label {
+  margin-bottom: 1rem;
+  display: block;
+  font-size: 20px;
+}
+
+.input {
+  width: 100%;
+  padding: 1rem;
+  padding-left: 40px;
+  border-radius: 4px;
+  border: 1px solid #2a6cf1;
+  outline: 0;
+  font-size: 18px;
+}
+
+.input::placeholder,
+.input:-moz-placeholder,
+.input:-ms-input-placeholder,
+.input::-webkit-input-placeholder {
+  color: #a8a8a8;
+}
+
+.input:focus {
+  border-color: rgb(33, 84, 185);
+  transition: 0.5s;
+}
+
+.form_icon {
+  position: absolute;
+  left: 0.6rem;
+  bottom: 1rem;
+  color: #a8a8a8;
+}
+
+.button {
+  width: calc(100% - 1rem);
+  height: 4rem;
+  position: fixed;
+  left: 0.5rem;
+  bottom: 0.5rem;
+  font-size: 30px;
+}
+
+@media (min-width: 550px) {
+  #login,
+  .button {
+    position: absolute;
+    width: 500px;
+    left: 50%;
+    margin: 0 0 0 -250px;
+  }
+}
+
+.shadow-sm {
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.32);
+}
+
+.error {
+  color: #df4747;
+}
+
+.error_input {
+  border-color: #df4747;
 }
 </style>
