@@ -1,14 +1,15 @@
 <template>
 <div class="inputDefault">
   <div class="form_content">
-    <label class="label color-gray" :class="{'label_move': inputActive}" :for="name">{{label}}</label>
+    <label class="label color-gray" :class="{'label_move': changeColorAndMoveLabel}" :for="name">{{label}}</label>
     <div class="form_input">
-      <span class="form_icon color-gray-dark" :class="{'color-gray': !inputActive}">
+      <span class="form_icon color-gray-dark" :class="{'color-gray': !changeColorAndMoveLabel}">
         <font-awesome-icon :icon="icon" />
       </span>
       <input
         :id="name"
-        class="input color-gray-dark"
+        class="input color-gray-dark" 
+        :class="{'color-border-blue': changeColorAndMoveLabel}"
         :type="type"
         :name="name"
         @change="$emit('data', data)"
@@ -33,15 +34,15 @@ export default {
   data() {
     return {
       data: this.value,
-      inputActive: false
+      changeColorAndMoveLabel: false
     }
   },
   methods: {
     animationInput() {
       this.data.length == 0 ?
-        this.inputActive = false
+        this.changeColorAndMoveLabel = false
       :
-        this.inputActive = true;
+        this.changeColorAndMoveLabel = true;
     }
   },
   watch: {
@@ -68,27 +69,11 @@ export default {
   width: 100%;
 }
 
-.color-gray-dark{
-  color: #455A64;
-  transition: 0.2s;
-  -moz-transition: 0.2s;
-  -o-transition: 0.2s;
-  -webkit-transition: 0.2s;
-}
-
-.color-gray{
-  color: #A8A8A8;
-  transition: 0.2s;
-  -moz-transition: 0.2s;
-  -o-transition: 0.2s;
-  -webkit-transition: 0.2s;
-}
-
 .label {
   margin-bottom: 0.3rem;
   display: inline-block;
   font-size: 18px;
-  transform: translate(32px,36px);
+  transform: translate(31px,39px);
 }
 
 .label_move{
@@ -97,7 +82,7 @@ export default {
 
 .input {
   width: 100%;
-  padding: .7rem 0;
+  padding: .8rem .5rem;
   padding-left: 32px;
   border:0;
   border-bottom: 1px solid #a8a8a8;
@@ -114,7 +99,7 @@ export default {
 }
 
 .input:focus {
-  border-color: #2154b9;
+  border-color: #729DFF;
   transition: 0.2s;
 }
 
@@ -122,6 +107,30 @@ export default {
   position: absolute;
   left: 0.2rem;
   bottom: .8rem;
+}
+
+.color-gray-dark {
+  color: #455A64;
+  transition: 0.2s;
+  -moz-transition: 0.2s;
+  -o-transition: 0.2s;
+  -webkit-transition: 0.2s;
+}
+
+.color-gray {
+  color: #A8A8A8;
+  transition: 0.2s;
+  -moz-transition: 0.2s;
+  -o-transition: 0.2s;
+  -webkit-transition: 0.2s;
+}
+
+.color-border-blue {
+  border-color: #729DFF;
+  transition: 0.2s;
+  -moz-transition: 0.2s;
+  -o-transition: 0.2s;
+  -webkit-transition: 0.2s;
 }
 
 </style>

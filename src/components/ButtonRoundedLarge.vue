@@ -1,5 +1,5 @@
 <template>
-  <div class="k-button">
+  <div class="ButtonRoundedLarge">
     <button
       class="btn"
       :class="alt == 'true' ? 'alt' : null"
@@ -10,7 +10,7 @@
 
     <script>
 export default {
-  name: "KButton",
+  name: "ButtonRoundedLarge",
   props: {
     value: {
       type: String
@@ -24,7 +24,7 @@ export default {
     return {};
   },
   methods: {
-    emitClick: function() {
+    emitClick() {
       this.$emit("click");
     }
   }
@@ -33,23 +33,27 @@ export default {
 
     <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-button {
-  background-color: #729DFF;
-  border: 0;
-  border-radius: 50px;
+.btn {
   width: 100%;
   height: 100%;
-  transition: 200ms;
+  outline: 0;
+  border: 0;
+  border-radius: 50px;
+  background-color: #729DFF;
+  font-size: 20px;
   color: rgb(241, 241, 241, .79);
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.32);
+  transition: 0.2s;
+  -moz-transition: 0.2s;
+  -o-transition: 0.2s;
+  -webkit-transition: 0.2s;
 }
-button:active {
+
+.btn:active {
   transform: scale(1.025);
 }
-.btn {
-  font-weight: 700;
-}
+
 .alt {
   background-color: #eb8334;
-  border: 0;
 }
 </style>
