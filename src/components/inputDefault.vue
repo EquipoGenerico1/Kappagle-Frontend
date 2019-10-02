@@ -4,7 +4,7 @@
     <label class="label color-gray" :class="{'label_move': inputActive}" :for="name">{{label}}</label>
     <div class="form_input">
       <span class="form_icon color-gray-dark" :class="{'color-gray': !inputActive}">
-        <font-awesome-icon icon="user" />
+        <font-awesome-icon :icon="icon" />
       </span>
       <input
         :id="name"
@@ -24,6 +24,7 @@
 export default {
  name: "inputDefault",
   props:{
+    icon: String,
     type: String,
     label: String,
     name: String,
@@ -86,7 +87,7 @@ export default {
 .label {
   margin-bottom: 0.3rem;
   display: inline-block;
-  font-size: 16px;
+  font-size: 18px;
   transform: translate(32px,36px);
 }
 
@@ -100,6 +101,7 @@ export default {
   padding-left: 32px;
   border:0;
   border-bottom: 1px solid #a8a8a8;
+  background-color: transparent;
   outline: 0;
   font-size: 18px;
 }
