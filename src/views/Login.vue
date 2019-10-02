@@ -43,7 +43,7 @@ export default {
         .login(this.email, this.password)
         .then(res => {
           localStorage.setItem("token", JSON.stringify(res.data));
-          this.$router.push({ path: "checks", query: {} }).catch(() => {});
+          this.$router.push({ path: "landing", query: {} }).catch(() => {});
         })
         .catch(error => {
           console.log(error);

@@ -24,7 +24,6 @@ export default {
   name: "Dropdown",
   props: {
     items: {
-      type: Array,
       default: []
     },
     selected: {
@@ -44,7 +43,7 @@ export default {
       this.dropDowns[dropdownName].open = !this.dropDowns[dropdownName].open;
     },
     close: function() {
-      for (dd in this.dropDowns) {
+      for (var dd in this.dropDowns) {
         this.dropDowns[dd].open = false;
       }
     },

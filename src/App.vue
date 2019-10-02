@@ -2,31 +2,31 @@
   <div id="app">
     <div class="navbar" :class="!showNav ? 'shadow' : null" v-if="page">
       <div class="nav-title">{{page}}</div>
-      <div class="nav-icon" @click="showNav = !showNav" v-if="role == 'ROLE_ADMIN'">
+      <div class="nav-icon" @click="showNav = !showNav" v-if="role != 'NO_ROLE'">
         <font-awesome-icon icon="bars" class="menu-icon" />
       </div>
       <div class="nav-icon" v-else>
         <font-awesome-icon icon="user" class="menu-icon" />
       </div>
     </div>
-    <div
-      class="navbar-menu"
-      v-if="showNav && role == 'ROLE_ADMIN'"
-      :class="showNav ? 'shadow' : null"
-    >
+    <div class="navbar-menu" v-if="showNav && role != 'NO_ROLE'" :class="showNav ? 'shadow' : null">
       <div class="menu-item" @click="showNav = false">
         <router-link to="/landing">Fichar</router-link>
       </div>
       <div class="divider"></div>
       <div class="menu-item" @click="showNav = false">
-        <router-link to="/users">Empleados</router-link>
+        <router-link to="/history">Historial</router-link>
       </div>
       <div class="divider"></div>
+      <div class="menu-item" @click="showNav = false" v-if="role == 'ROLE_ADMIN'">
+        <router-link to="/users">Empleados</router-link>
+      </div>
+      <div class="divider" v-if="role == 'ROLE_ADMIN'"></div>
       <!-- <div class="menu-item">Mi Perfil</div>
       <div class="divider"></div>-->
       <div class="menu-item" @click="logOut()">Cerrar Sesión</div>
     </div>
-    <router-view :id="page ? 'view': 'login'"></router-view>
+    <router-view :id="page ? 'view': 'login'" :key="$route.fullPath"></router-view>
   </div>
 </template>
 
@@ -45,12 +45,16 @@ export default {
   methods: {
     setViewName(name) {
       switch (name) {
-        case "checks":
+        case "landing":
           this.page = "Fichar";
           break;
 
         case "users":
           this.page = "Empleados";
+          break;
+
+        default:
+          this.page = "Historial";
           break;
       }
     },
@@ -111,7 +115,7 @@ a {
 }
 .navbar {
   height: 70px;
-  background-color: #14283d;
+  background-color: #15387b;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -134,7 +138,7 @@ a {
 .navbar-menu {
   text-align: center;
   color: white;
-  background-color: #19314b;
+  background-color: #2156b8;
 }
 .menu-item {
   padding: 5px;

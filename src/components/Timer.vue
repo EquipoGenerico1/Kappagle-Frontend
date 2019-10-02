@@ -1,5 +1,5 @@
 <template>
-  <div class="k-timer" v-if="checkIn">
+  <div class="k-timer">
     <div id="time" v-if="elapsed">{{elapsed}}</div>
   </div>
 </template>
@@ -33,13 +33,15 @@ export default {
   },
   watch: {
     now: function(val) {
-      const duration = moment.duration(
-        moment(val).diff(moment.unix(this.checkIn))
-      );
-      var time = moment(duration)._i._data;
-      var hours = this.parseDate(time.hours);
-      var minutes = this.parseDate(time.minutes);
-      this.elapsed = `${hours}:${minutes}`;
+      if (this.checkIn) {
+        const duration = moment.duration(
+          moment(val).diff(moment.unix(this.checkIn))
+        );
+        var time = moment(duration)._i._data;
+        var hours = this.parseDate(time.hours);
+        var minutes = this.parseDate(time.minutes);
+        this.elapsed = `${hours}:${minutes}`;
+      }
     }
   },
   created() {

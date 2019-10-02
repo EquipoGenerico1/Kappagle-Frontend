@@ -1,7 +1,7 @@
 <template>
   <div class="fab">
     <button class="fab-btn ripple">
-      <font-awesome-icon id="icon" :icon="faIcon" />
+      <font-awesome-icon :class="alt ? 'icon-red' : 'icon-gray'" :icon="faIcon" />
     </button>
   </div>
 </template>
@@ -13,6 +13,10 @@ export default {
     faIcon: {
       type: String,
       default: "plus"
+    },
+    alt: {
+      type: Boolean,
+      default: null
     }
   },
   data() {
@@ -40,8 +44,13 @@ export default {
   border-radius: 50%;
   outline: none;
 }
-#icon {
+.icon-red {
   color: red;
+  width: 20px;
+  height: 20px;
+}
+.icon-gray {
+  color: gray;
   width: 20px;
   height: 20px;
 }

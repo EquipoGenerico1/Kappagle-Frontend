@@ -1,8 +1,8 @@
 <template>
   <div class="user-header">
     <div class="user-image"></div>
-    <div class="name">José Pérez Tejera</div>
-    <div class="email">jose@gmail.com</div>
+    <div class="name">{{name}}</div>
+    <div class="email">{{email}}</div>
     <div class="selector">
       <Dropdown :selected="months[0]" :items="months" @click="monthSelected"></Dropdown>
       <Dropdown :selected="years[0]" :items="years" @click="yearSelected"></Dropdown>
@@ -17,7 +17,16 @@ export default {
   components: {
     Dropdown
   },
-  props: {},
+  props: {
+    name: {
+      type: String,
+      default: "José Pérez Tejera"
+    },
+    email: {
+      type: String,
+      default: "test@gmail.com"
+    }
+  },
   data() {
     return {
       months: [
@@ -70,7 +79,6 @@ export default {
   methods: {
     methodToRunOnSelect(payload) {
       this.selected = payload;
-      console.log(object);
     },
     monthSelected(item) {
       console.log(item);
@@ -88,7 +96,7 @@ export default {
   background-color: #2a6cf1;
   width: 100%;
   height: 100%;
-  box-shadow: 0px -1px 5px 1px black;
+  box-shadow: 0px 2px 5px 0px black;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

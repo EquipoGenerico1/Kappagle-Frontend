@@ -1,5 +1,5 @@
 <template>
-  <div class="k-hours" v-if="checkIn">
+  <div class="k-hours">
     <div class="h-header">{{day}}/{{month}}/{{year}}</div>
     <div class="h-body">
       <div class="check">
@@ -30,9 +30,21 @@ export default {
   },
   data() {
     return {
-      day: this.parseDate(moment.unix(this.checkIn).toObject().date),
-      month: this.parseDate(moment.unix(this.checkIn).toObject().months + 1),
-      year: this.parseDate(moment.unix(this.checkIn).toObject().years),
+      day: this.parseDate(
+        moment
+          .unix(this.checkIn ? this.checkIn : moment(Date.now()).unix())
+          .toObject().date
+      ),
+      month: this.parseDate(
+        moment
+          .unix(this.checkIn ? this.checkIn : moment(Date.now()).unix())
+          .toObject().months + 1
+      ),
+      year: this.parseDate(
+        moment
+          .unix(this.checkIn ? this.checkIn : moment(Date.now()).unix())
+          .toObject().years
+      ),
       cIn: moment.unix(this.checkIn),
       cOut: moment.unix(this.checkOut)
     };
@@ -41,6 +53,9 @@ export default {
     parseDate(number) {
       return number < 10 ? "0" + number : number;
     }
+  },
+  created() {
+    console.log(this.checkIn);
   }
 };
 </script>
@@ -51,7 +66,7 @@ export default {
   background-color: #2a6cf1;
   width: 100%;
   height: 100%;
-  box-shadow: 0px -2px 5px 1px black;
+  box-shadow: 0px 1px 4px 0px black;
 }
 .h-header {
   height: 40%;

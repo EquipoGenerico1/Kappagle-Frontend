@@ -47,18 +47,6 @@ const router = new Router({
       }
     },
     {
-      path: '/checks',
-      name: 'checks',
-      component: () => import('./views/Checks.vue'),
-      beforeEnter: (to, from, next) => {
-        if (isLogged()) {
-          next();
-        } else {
-          next('/login')
-        }
-      }
-    },
-    {
       path: '/users',
       name: 'users',
       component: EmployersList
@@ -74,11 +62,38 @@ const router = new Router({
       path: '/landing',
       name: 'landing',
       component: () => import('./views/Landing.vue'),
+      beforeEnter: (to, from, next) => {
+        if (isLogged()) {
+          next();
+        } else {
+          next('/login')
+        }
+      }
     },
     {
       path: '/history',
       name: 'history',
       component: () => import('./views/LoggedHistory.vue'),
+      beforeEnter: (to, from, next) => {
+        if (isLogged()) {
+          next();
+        } else {
+          next('/login')
+        }
+      }
+    }
+    ,
+    {
+      path: '/user/:id/history',
+      name: 'user-history',
+      component: () => import('./views/LoggedHistory.vue'),
+      beforeEnter: (to, from, next) => {
+        if (isLogged()) {
+          next();
+        } else {
+          next('/login')
+        }
+      }
     }
   ]
 })

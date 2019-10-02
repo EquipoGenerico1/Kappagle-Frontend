@@ -5,26 +5,30 @@
         <font-awesome-icon icon="search" />
       </button>
       <input type="search" id="mySearch" placeholder="Buscar empleado..." />
-      <div id="space-for-add-button">
-        <button id="add-button">
-          <font-awesome-icon icon="user-plus" />
-        </button>
-      </div>
     </div>
-    <div id="employers-cards" @click="goToDetails()">
-      <NCard class="users" v-for="user in users" :name="user.name" :key="user._id"></NCard>
+    <div id="employers-cards">
+      <NCard
+        class="users"
+        v-for="user in users"
+        :name="user.name"
+        :key="user._id"
+        @click="goToDetails(user._id)"
+      ></NCard>
     </div>
+    <Fab faIcon="user-plus" />
   </div>
 </template>
 
 <script>
 import NCard from "../components/NamesCards";
+import Fab from "../components/Fab";
 import axios from "../helpers/axios";
 
 export default {
   name: "EmployersList",
   components: {
-    NCard
+    NCard,
+    Fab
   },
   data() {
     return {
@@ -38,6 +42,14 @@ export default {
         this.users = res.data;
       })
       .catch(err => {});
+  },
+  methods: {
+    goToDetails(id) {
+      console.log(id);
+      this.$router
+        .push({ path: `user/${id}/history`, query: {} })
+        .catch(() => {});
+    }
   }
 };
 </script>
@@ -50,8 +62,7 @@ export default {
   display: flex;
   height: 80px;
   width: 100%;
-  background-color: #1e344b;
-  margin-bottom: 44px;
+  background-color: #2156b8;
   box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
 }
 #seach-button {
@@ -59,8 +70,7 @@ export default {
   border-style: none;
   border-color: none;
   border-image: none;
-  color: #1e344b;
-  background-color: #1e344b;
+  background-color: #2156b8;
   color: white;
   padding: 2px 20px;
   font-size: 24px;
@@ -72,9 +82,13 @@ export default {
   border-style: none;
   border-color: none;
   border-image: none;
+  outline: none;
   color: white;
   padding: 1px 10px;
   font-size: 18px;
+}
+#mySearch::placeholder {
+  color: white;
 }
 #space-for-add-button {
   display: flex;
