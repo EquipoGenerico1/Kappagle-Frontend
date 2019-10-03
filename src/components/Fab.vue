@@ -1,6 +1,6 @@
 <template>
   <div class="fab">
-    <button class="fab-btn ripple">
+    <button class="fab-btn ripple" @click="emitClick">
       <font-awesome-icon :class="alt ? 'icon-red' : 'icon-gray'" :icon="faIcon" />
     </button>
   </div>
@@ -22,7 +22,11 @@ export default {
   data() {
     return {};
   },
-  methods: {}
+  methods: {
+    emitClick: function() {
+      this.$emit("click");
+    }
+  }
 };
 </script>
 
