@@ -28,7 +28,7 @@ export default {
 }
 
 .snackBar_card {
-  width: 400px;
+  width: fit-content;
   padding: 1rem 2rem;
   margin: auto;
   border-radius: 4px;
@@ -41,6 +41,10 @@ export default {
   align-items: center;
   color: rgba(255, 255, 255, 0.836);
   font-size: 18px;
+}
+
+.snackBar_body p {
+  padding-right: 2rem;
 }
 
 .d-none {
