@@ -14,7 +14,7 @@
         :name="name"
         @change="$emit('data', data)"
         v-model.trim="data"
-        autocomplete="off"
+        :autocomplete="off"
       />
     </div>
   </div>

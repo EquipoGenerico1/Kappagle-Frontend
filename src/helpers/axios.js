@@ -39,7 +39,8 @@ var requests = {
                 Authorization: `Bearer ${token["access_token"]}`
             }
         });
-    }, getUsers(name = "") {
+    }, 
+    getUsers(name = "") {
         let token = JSON.parse(localStorage.getItem("token"));
         return axios.get(`${url}/users`, {
             params: {
@@ -49,17 +50,37 @@ var requests = {
                 Authorization: `Bearer ${token["access_token"]}`,
             }
         });
-    }, editUser(data) {
+    },
+    editUser(data) {
         let token = JSON.parse(localStorage.getItem("token"));
-        return axios.post(`${url}/users/edit`, {
-            [data]: data,
-        }, {
+        return axios.patch(`${url}/users/edit`, data, {
+            headers: {
+                Authorization: `Bearer ${token["access_token"]}`
+            }
+        });
+    },
+    imageProfile(file) {
+        let token = JSON.parse(localStorage.getItem("token"));
+        const formData = new FormData();
+        formData.append('avatar',file);
+        console.log(file)
+
+        console.log(formData)
+        return axios.post(`${url}/users/photo`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${token["access_token"]}`
+            }
+        });
+    },
+    myProfile() {
+        let token = JSON.parse(localStorage.getItem("token"));
+        return axios.get(`${url}/users/profile`, {
             headers: {
                 Authorization: `Bearer ${token["access_token"]}`
             }
         });
     }
-
 }
 
 

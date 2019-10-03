@@ -1,25 +1,25 @@
 <template>
   <div class="MyProfile">
-    
+
     <div class="prof_content_image">
       <div class="prof_image">
-        <font-awesome-icon icon="user-circle" class="image" />
+        <img class="img-user" :src="'http://localhost:5000/public/images/' + dataUser.nameImage" v-if="dataUser.nameImage!=null"/>
+        <font-awesome-icon icon="user-circle" class="image" v-else/>
         <label class="btn_image shadow-sm" title="Imagen de perfil" for="img_profile"><font-awesome-icon icon="camera" size="lg" /></label>
-        <input id="img_profile" class="hidde" type="file" />
+        <input id="img_profile" class="hidde" type="file" ref="file" @change="image()" />
       </div>
     </div>
-    
+
     <div class="prof_content_user">
-      <div class="form">
-       <editInput @data="getUserName" :label="'Nombre y apellidos'" :name="'username'" :value="'Pepe'"/>
-      </div>
+      <form class="form" enctype="multipart/form-data">
+       <editInput @data="getUserName" :label="'Nombre y apellidos'" :name="'username'" :value="{data: dataUser.name}" :icon="'user'" />
+      </form>
     </div>
 
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 import editInput from "@/components/editInput";
 import requests from "@/helpers/axios";
 
@@ -30,23 +30,57 @@ export default {
   },
   data() {
     return {
-      dataUser: []
+      dataUser: {},
+      file: null
     }
   },
   methods: {
     getUserName(username){
-      this.edit(username);
+      const data = {
+        field: 'name',
+        newData: username
+      };
+      this.edit(data);
     },
     edit(data) {
+      console.log(data);
       requests
         .editUser(data)
         .then(res => {
-          console.log('si');
+          console.log(res.data);
         })
         .catch(error => {
           console.log(error);
         });
+    },
+    image() {
+      this.file = this.$refs.file.files[0];
+      this.sendImage();
+    },
+    sendImage() {
+      requests
+        .imageProfile(this.file)
+        .then(res => {
+          this.dataUser.nameImage = res.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    profile() {
+      requests
+      .myProfile()
+      .then(res => {
+        this.dataUser = res.data;
+        console.log(this.dataUser);
+      })
+      .catch(error => {
+        console.log(error);
+      });
     }
+  },
+  created(){
+    this.profile();
   }
 }
 </script>
@@ -104,6 +138,11 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.img-user {
+  width: 160px;
+  border-radius: 50%;
 }
 
 </style>

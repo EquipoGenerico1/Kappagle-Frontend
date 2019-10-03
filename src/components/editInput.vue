@@ -1,14 +1,14 @@
 <template>
 <div class="editInput border_bottom">
   <div class="form_content">
-    <label class="label color-gray" :class="{'label_move': inputActive}" :for="name">{{label}}</label>
+    <label class="label color-gray" :class="{'label_move': animateLabelAndChangeColor}" :for="name">{{label}}</label>
     <div class="form_input">
       <div class="form_icon_input">
-        <font-awesome-icon @click="disabled = !disabled" icon="pen" size="lg" :class="{'hidde': changeData}" />
-        <font-awesome-icon @click="updateUsername()" icon="save" size="lg" :class="{'hidde': !changeData}" />
+        <font-awesome-icon @click="disabled = !disabled" icon="pen" size="lg" v-if="disabled"/>
+        <font-awesome-icon @click="updateUsername()" :icon="iconUpdate" size="lg" v-if="!disabled" :class="{'color-red':iconUpdate=='times'}"/>
       </div>
-      <span class="form_icon color-gray-dark" :class="{'color-gray': !inputActive}">
-        <font-awesome-icon icon="user" />
+      <span class="form_icon color-gray-dark" :class="{'color-gray': !animateLabelAndChangeColor}">
+        <font-awesome-icon :icon="icon" />
       </span>
       <input
         :disabled="disabled"
@@ -16,8 +16,7 @@
         class="input color-gray-dark"
         type="text"
         :name="name"
-        @keyup.enter="$emit('data', data)"
-        v-model.trim="data"
+        v-model.trim="value.data"
         autocomplete="off"
       />
     </div>
@@ -31,41 +30,37 @@ export default {
   props:{
     label: String,
     name: String,
-    value: String
+    value: Object,
+    icon: String
   },
   data() {
     return {
-      currentData: this.value,
-      data: this.value,
-      inputActive: false,
+      currentValue: this.value.data,
+      animateLabelAndChangeColor: false,
       disabled: true,
-      changeData: false
+      iconUpdate: 'save'
     }
   },
   methods: {
     animationInput() {
-      this.data.length == 0 ?
-        this.inputActive = false
+      this.value.data == '' ?
+        this.animateLabelAndChangeColor = false
       :
-        this.inputActive = true;
+        this.animateLabelAndChangeColor = true;
     },
-    changeIcons(){
-      this.data == this.currentData ?
-        this.changeData = false
-      :
-        this.changeData = true;
-    },updateUsername(){
-      
+    updateUsername() {
+      if( this.value.data != '' ) {
+        if( this.value.data != this.currentValue ) {
+          this.$emit('data', this.value.data);
+        }
+        this.disabled = !this.disabled;
+        this.iconUpdate = 'save';
+      }else {
+        this.iconUpdate = 'times';
+      }
     }
   },
-  watch: {
-    data(inputData){
-      this.data = inputData;
-      this.changeIcons();
-      this.animationInput();
-    }
-  },
-  created(){
+  mounted() {
     this.animationInput();
   }
 }
@@ -102,6 +97,10 @@ export default {
   -webkit-transition: 0.2s;
 }
 
+.color-red {
+  color: #df4747;
+}
+
 .label {
   margin-bottom: 0.3rem;
   display: inline-block;
@@ -123,6 +122,7 @@ export default {
   font-size: 18px;
 }
 
+
 .input::placeholder,
 .input:-moz-placeholder,
 .input:-ms-input-placeholder,
@@ -132,14 +132,14 @@ export default {
 
 .form_icon {
   position: absolute;
-  left: 0.2rem;
+  left: 0.5rem;
   bottom: .8rem;
 }
 
 .form_icon_input{
   position: absolute;
   right: .5rem;
-  bottom: 2rem;
+  bottom: .8rem;
   color: #729DFF;
 }
 
