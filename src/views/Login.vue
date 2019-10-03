@@ -6,7 +6,7 @@
       <inputDefault :icon="'envelope'" :type="'email'" :label="'Correo electrónico'" :name="'email'" @data="getEmail" />
       <inputDefault :icon="'lock'" :type="'password'" :label="'Contraseña'" :name="'password'" @data="getPassword" />
     </div>
-    <snackBar v-if="warning" :message="'Usuario o contraseña incorrecto'"></snackBar>
+    <snackBar @click="warning = !warning" v-if="warning" :message="'Usuario o contraseña incorrecto'"></snackBar>
     <div class="button-login">
       <ButtonRoundedLarge class="button" value="Acceder" @click="login"></ButtonRoundedLarge>
     </div>
@@ -36,6 +36,7 @@ export default {
     };
   },
   methods: {
+    
     getEmail(email) {
       console.log(email);
       this.email = email;
