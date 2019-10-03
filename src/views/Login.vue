@@ -3,22 +3,33 @@
     <h1 class="h1">Login</h1>
 
     <div class="form">
-      <inputDefault :icon="'envelope'" :type="'email'" :label="'Correo electrónico'" :name="'email'" @data="getEmail" />
-      <inputDefault :icon="'lock'" :type="'password'" :label="'Contraseña'" :name="'password'" @data="getPassword" />
+      <inputDefault
+        :icon="'envelope'"
+        :type="'text'"
+        :label="'Correo electrónico'"
+        :name="'email'"
+        @data="getEmail"
+      />
+      <inputDefault
+        :icon="'lock'"
+        :type="'password'"
+        :label="'Contraseña'"
+        :name="'password'"
+        @data="getPassword"
+      />
     </div>
     <snackBar v-if="warning" :message="'Usuario o contraseña incorrecto'"></snackBar>
     <div class="button-login">
       <ButtonRoundedLarge class="button" value="Acceder" @click="login"></ButtonRoundedLarge>
     </div>
-   
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import inputDefault from '@/components/inputDefault';
+import inputDefault from "@/components/inputDefault";
 import ButtonRoundedLarge from "@/components/ButtonRoundedLarge";
-import snackBar from '@/components/snackBar';
+import snackBar from "@/components/snackBar";
 import requests from "@/helpers/axios";
 
 export default {
@@ -106,5 +117,4 @@ export default {
 .error_input {
   border-color: #df4747;
 }
-
 </style>
