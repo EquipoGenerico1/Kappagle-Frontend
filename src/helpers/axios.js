@@ -1,5 +1,6 @@
 const url = "http://localhost:5000/api/v1"
 import axios from "axios";
+import { saveAs } from "file-saver";
 
 var requests = {
     login(email, password) {
@@ -49,6 +50,34 @@ var requests = {
                 Authorization: `Bearer ${token["access_token"]}`,
             }
         });
+    }, getPdfUser(from, to) {
+        let token = JSON.parse(localStorage.getItem("token"));
+        return axios.get(`${url}/users/pdf`,
+            {
+                responseType: 'blob',
+                params: { from, to },
+                headers: { Authorization: `Bearer ${token["access_token"]}`, }
+            })
+            .then(res => {
+                const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
+                const filename = "entradas y salidas desde " + from + " hasta " + to + ".pdf";
+                saveAs(pdfBlob, filename);
+            })
+            .catch(res => { });
+    }, getPdfAdmin(from, to, user) {
+        let token = JSON.parse(localStorage.getItem("token"));
+        return axios.get(`${url}/users/${user._id}/pdf`,
+            {
+                responseType: 'blob',
+                params: { from, to },
+                headers: { Authorization: `Bearer ${token["access_token"]}`, }
+            })
+            .then(res => {
+                const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
+                const filename = "entradas y salidas de " + user.name + " deesde " + from + " hasta " + to + ".pdf";
+                saveAs(pdfBlob, filename);
+            })
+            .catch(res => { });
     }
 
 }
