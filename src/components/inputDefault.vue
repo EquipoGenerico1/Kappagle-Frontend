@@ -1,20 +1,20 @@
 <template>
 <div class="inputDefault">
   <div class="form_content">
-    <label class="label color-gray" :class="{'label_move': changeColorAndMoveLabel}" :for="name">{{label}}</label>
+    <label class="label color-gray" :class="{'label_move' : changeColorAndMoveLabel}" :for="name">{{label}}</label>
     <div class="form_input">
-      <span class="form_icon color-gray-dark" :class="{'color-gray': !changeColorAndMoveLabel}">
+      <span class="form_icon color-gray-dark" :class="{'color-gray' : !changeColorAndMoveLabel}">
         <font-awesome-icon :icon="icon" />
       </span>
       <input
         :id="name"
         class="input color-gray-dark" 
-        :class="{'color-border-blue': changeColorAndMoveLabel}"
+        :class="{'color-border-blue' : changeColorAndMoveLabel , 'color-red' : stateField}"
         :type="type"
         :name="name"
         @change="$emit('data', data)"
         v-model.trim="data"
-        :autocomplete="off"
+        :autocomplete="complete"
       />
     </div>
   </div>
@@ -29,12 +29,15 @@ export default {
     type: String,
     label: String,
     name: String,
-    value: String
+    value: String,
+    complete: String,
+    state: Boolean
   },
   data() {
     return {
       data: this.value,
-      changeColorAndMoveLabel: false
+      changeColorAndMoveLabel: false,
+      stateField: false
     }
   },
   methods: {
@@ -45,10 +48,11 @@ export default {
         this.changeColorAndMoveLabel = true;
     }
   },
-  watch: {
-    data(inputData){
-      this.data = inputData;
-      this.animationInput();
+   watch: {
+    'state'() {
+      if(this.state==true){
+        this.stateField = this.state;
+      }
     }
   }
 }
@@ -98,11 +102,6 @@ export default {
   color: #a8a8a8;
 }
 
-.input:focus {
-  border-color: #729DFF;
-  transition: 0.2s;
-}
-
 .form_icon {
   position: absolute;
   left: 0.2rem;
@@ -119,6 +118,14 @@ export default {
 
 .color-gray {
   color: #A8A8A8;
+  transition: 0.2s;
+  -moz-transition: 0.2s;
+  -o-transition: 0.2s;
+  -webkit-transition: 0.2s;
+}
+
+.color-red {
+  border-color: rgb(255, 114, 114);
   transition: 0.2s;
   -moz-transition: 0.2s;
   -o-transition: 0.2s;
