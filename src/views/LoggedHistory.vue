@@ -1,7 +1,12 @@
 <template>
   <div class="self-history">
     <div class="header">
-      <Header :name="user ? user.name : ''" :email="user ? user.email : ''"></Header>
+      <Header
+        :name="user ? user.name : ''"
+        :email="user ? user.email : ''"
+        @monthSelected="changeMonth"
+        @yearSelected="changeYear"
+      ></Header>
     </div>
     <div class="body">
       <LogCard
@@ -11,7 +16,7 @@
         :key="card._id"
       ></LogCard>
     </div>
-    <Fab faIcon="file-pdf" :alt="true" />
+    <Fab faIcon="file-pdf" :alt="true" @click="downloadPdf(month, year)" />
   </div>
 </template>
 
@@ -32,7 +37,9 @@ export default {
   data() {
     return {
       checkList: [],
-      user: null
+      user: null,
+      month: 1,
+      year: 2019
     };
   },
   methods: {
@@ -60,6 +67,29 @@ export default {
           this.user = res.data;
         })
         .catch(err => {});
+    },
+    changeMonth(item) {
+      console.log("history", item);
+      this.month = item.index;
+    },
+    changeYear(item) {
+      console.log("history", item);
+      this.year = item.index;
+    },
+    downloadPdf(month, year) {
+      console.log(month, year);
+      var date = `1-${month}-${year}`;
+      var userData = {
+        name: this.user.name,
+        _id: this.$route.params.id
+      };
+      var finalDate;
+      if (month == 12) {
+        finalDate = `1-1-${year + 1}`;
+      } else {
+        finalDate = `1-${month + 1}-${year}`;
+      }
+      axios.getPdfAdmin(date, finalDate, userData);
     }
   },
   created() {

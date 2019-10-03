@@ -31,47 +31,60 @@ export default {
     return {
       months: [
         {
-          name: "Enero"
+          name: "Enero",
+          index: 1
         },
         {
-          name: "Febrero"
+          name: "Febrero",
+          index: 2
         },
         {
-          name: "Marzo"
+          name: "Marzo",
+          index: 3
         },
         {
-          name: "Abril"
+          name: "Abril",
+          index: 4
         },
         {
-          name: "Mayo"
+          name: "Mayo",
+          index: 5
         },
         {
-          name: "Junio"
+          name: "Junio",
+          index: 6
         },
         {
-          name: "Julio"
+          name: "Julio",
+          index: 7
         },
         {
-          name: "Agosto"
+          name: "Agosto",
+          index: 8
         },
         {
-          name: "Septiembre"
+          name: "Septiembre",
+          index: 9
         },
         {
-          name: "Octubre"
+          name: "Octubre",
+          index: 10
         },
         {
-          name: "Noviembre"
+          name: "Noviembre",
+          index: 11
         },
         {
-          name: "Diciembre"
+          name: "Diciembre",
+          index: 12
         }
       ],
       years: [
         {
-          name: "2019"
+          name: "2019",
+          index: 2019
         },
-        { name: "2020" }
+        { name: "2020", index: 2020 }
       ],
       selected: "Febrero"
     };
@@ -82,9 +95,11 @@ export default {
     },
     monthSelected(item) {
       console.log(item);
+      this.$emit("monthSelected", item);
     },
     yearSelected(item) {
       console.log(item);
+      this.$emit("yearSelected", item);
     }
   }
 };
