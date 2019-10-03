@@ -1,61 +1,32 @@
 <template>
   <div id="container-master">
-    <div id="search-bar">
-      <button id="seach-button">
-        <font-awesome-icon icon="search" />
-      </button>
-      <input type="search" id="mySearch" placeholder="Buscar empleado..." />
-    </div>
-    <div id="employers-cards">
-      <NCard
-        class="users"
-        v-for="user in users"
-        :name="user.name"
-        :key="user._id"
-        @click="goToDetails(user._id)"
-      ></NCard>
-    </div>
-    <Fab faIcon="user-plus" />
+    {{name}}
+    <br />
+    {{hours}}
   </div>
 </template>
 
 <script>
-import NCard from "../components/NamesCards";
-import Fab from "../components/Fab";
 import axios from "../helpers/axios";
 
 export default {
-  name: "EmployersList",
-  components: {
-    NCard,
-    Fab
+  name: "UserDetails",
+  components: {},
+  props: {
+    name: {
+      type: String
+    }
   },
   data() {
     return {
-      users: [],
-      search: ""
+      hours: 0
     };
   },
-  computed: {
-    filteredUsers: function() {
-      return this.users.filter(user => user.name.includes(this.search));
-    }
-  },
   created: function() {
-    axios
-      .getUsers()
-      .then(res => {
-        this.users = res.data;
-      })
-      .catch(err => {});
-  },
-  methods: {
-    goToDetails(id) {
-      console.log(id);
-      this.$router
-        .push({ path: `user/${id}/history`, query: {} })
-        .catch(() => {});
-    }
+    let id = this.$route.params.id;
+    axios.getHoursFromUser(id).then(res => {
+      console.log(res);
+    });
   }
 };
 </script>
@@ -68,7 +39,8 @@ export default {
   display: flex;
   height: 80px;
   width: 100%;
-  background-color: #2156b8;
+  background-color: #1e344b;
+  margin-bottom: 44px;
   box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
 }
 #seach-button {
@@ -76,7 +48,8 @@ export default {
   border-style: none;
   border-color: none;
   border-image: none;
-  background-color: #2156b8;
+  color: #1e344b;
+  background-color: #1e344b;
   color: white;
   padding: 2px 20px;
   font-size: 24px;
@@ -88,13 +61,9 @@ export default {
   border-style: none;
   border-color: none;
   border-image: none;
-  outline: none;
   color: white;
   padding: 1px 10px;
   font-size: 18px;
-}
-#mySearch::placeholder {
-  color: white;
 }
 #space-for-add-button {
   display: flex;

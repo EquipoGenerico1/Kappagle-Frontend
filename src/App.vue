@@ -2,14 +2,14 @@
   <div id="app">
     <div class="navbar" :class="!showNav ? 'shadow' : null" v-if="page">
       <div class="nav-title">{{page}}</div>
-      <div class="nav-icon" @click="showNav = !showNav" v-if="role == 'ROLE_ADMIN'">
+      <div class="nav-icon" @click="showNav = !showNav" v-if="role != 'NO_ROLE'">
         <font-awesome-icon icon="bars" class="menu-icon" />
       </div>
       <div class="nav-icon" v-else>
         <font-awesome-icon icon="user" class="menu-icon" />
       </div>
     </div>
-    <div class="navbar-menu" v-if="showNav && role == 'ROLE_ADMIN'">
+    <div class="navbar-menu" v-if="showNav && role != 'NO_ROLE'" :class="showNav ? 'shadow' : null">
       <ul class="navbar-menu-list">
         <li @click="showNav = false">
           <router-link to="/users">
@@ -18,13 +18,13 @@
           </router-link>
         </li>
         <li @click="showNav = false">
-          <router-link to="/checks">
+          <router-link to="/landing">
             <span><font-awesome-icon icon="user-clock" /></span>
             Fichar
           </router-link>
         </li>
         <li @click="showNav = false">
-          <router-link to="/checks">
+          <router-link to="/history">
             <span><font-awesome-icon icon="history" /></span>
             Historial
           </router-link>
@@ -42,8 +42,9 @@
           </router-link>
         </li>
       </ul>
+
     </div>
-    <router-view :id="page ? 'view': 'login'"></router-view>
+    <router-view :id="page ? 'view': 'login'" :key="$route.fullPath"></router-view>
   </div>
 </template>
 
@@ -62,7 +63,7 @@ export default {
   methods: {
     setViewName(name) {
       switch (name) {
-        case "checks":
+        case "landing":
           this.page = "Fichar";
           break;
         case "myProfile":
@@ -71,14 +72,20 @@ export default {
         case "users":
           this.page = "Empleados";
           break;
+
+        default:
+          this.page = "Historial";
+          break;
       }
     },
     getRole() {
       let token = JSON.parse(localStorage.getItem("token"));
-      if (token.role) {
-        return token.role;
-      } else {
-        return null;
+      try {
+        if (token["role"]) {
+          return token.role;
+        }
+      } catch (error) {
+        return "NO_ROLE";
       }
     },
     logOut() {
@@ -105,7 +112,7 @@ body,
 #app {
   font-family: "Roboto", sans-serif;
   height: 100%;
-  background-color: #FCFCFC;
+  background-color: #fcfcfc;
 }
 
 * {
@@ -166,6 +173,7 @@ a {
   flex-wrap: wrap;
   flex-direction: column;
   list-style: none;
+
 }
 
 .navbar-menu-list li{
@@ -217,5 +225,20 @@ a {
 
 .hidde{
   display: none;
+}
+
+/* Ripple effect */
+.ripple {
+  background-position: center;
+  transition: 0.5s;
+}
+.ripple:hover {
+  background: #f1f1f1 radial-gradient(circle, transparent 1%, #00000010 1%)
+    center/15000%;
+}
+.ripple:active {
+  background-color: #f1f1f1;
+  background-size: 100%;
+  transition: 0s;
 }
 </style>
