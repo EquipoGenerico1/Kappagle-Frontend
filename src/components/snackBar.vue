@@ -14,7 +14,13 @@ export default {
   name: 'snackBar',
   props:{
     message: String,
-    color: String
+    color: String,
+    second: Number
+  },
+  created() {
+    setTimeout(() => {
+      this.$emit('click')
+    }, this.second || 2000);
   }
 }
 </script>
