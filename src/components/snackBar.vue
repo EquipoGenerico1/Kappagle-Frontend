@@ -1,6 +1,6 @@
 <template>
   <div class="snackBar">
-    <div class="snackBar_card shadow" >
+    <div class="snackBar_card shadow" :class="color" >
       <div class="snackBar_body">
         <p>{{message}}</p>
         <font-awesome-icon icon="times" @click="$emit('click')"/>
@@ -13,7 +13,8 @@
 export default {
   name: 'snackBar',
   props:{
-    message: String
+    message: String,
+    color: String
   }
 }
 </script>
@@ -32,7 +33,14 @@ export default {
   padding: 1rem 2rem;
   margin: auto;
   border-radius: 4px;
+}
+
+.dark {
   background-color: #444444;
+}
+
+.danger {
+  background-color: #e45757;
 }
 
 .snackBar_body {
