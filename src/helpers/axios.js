@@ -1,4 +1,6 @@
+// const url = "https://kappagle-backend.herokuapp.com/api/v1"
 const url = "http://localhost:5000/api/v1"
+
 import axios from "axios";
 import { saveAs } from "file-saver";
 
@@ -12,6 +14,14 @@ var requests = {
     checks() {
         let token = JSON.parse(localStorage.getItem("token"));
         return axios.get(`${url}/users/checks`, {
+            headers: {
+                Authorization: `Bearer ${token["access_token"]}`
+            }
+        });
+    },
+    checksFromId(id) {
+        let token = JSON.parse(localStorage.getItem("token"));
+        return axios.get(`${url}/users/${id}/checks`, {
             headers: {
                 Authorization: `Bearer ${token["access_token"]}`
             }
@@ -78,6 +88,22 @@ var requests = {
                 saveAs(pdfBlob, filename);
             })
             .catch(res => { });
+    }
+    , getUser(id) {
+        let token = JSON.parse(localStorage.getItem("token"));
+        return axios.get(`${url}/users/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token["access_token"]}`
+            }
+        });
+    }
+    , getHoursFromUser(id) {
+        let token = JSON.parse(localStorage.getItem("token"));
+        return axios.get(`${url}/users/${id}/worked-hours?from=1/1/1970&to=24/09/2020`, {
+            headers: {
+                Authorization: `Bearer ${token["access_token"]}`
+            }
+        });
     }
 
 }

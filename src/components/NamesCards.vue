@@ -1,5 +1,5 @@
 <template>
-  <div class="NCard-container">
+  <div class="NCard-container ripple" @click="emitClick">
     <div class="name">{{name}}</div>
   </div>
 </template>
@@ -11,12 +11,20 @@ export default {
     name: {
       type: String,
       default: "Paco López García"
+    },
+    hours: {
+      type: String,
+      default: "None"
     }
   },
   data() {
     return {};
   },
-  methods: {}
+  methods: {
+    emitClick: function() {
+      this.$emit("click");
+    }
+  }
 };
 </script>
 
@@ -29,7 +37,11 @@ export default {
   -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
-  margin: 5px;
+  margin: 8px;
+  margin-bottom: 0px;
+}
+.NCard-container:last-child {
+  margin-bottom: 8px;
 }
 .name {
   display: flex;

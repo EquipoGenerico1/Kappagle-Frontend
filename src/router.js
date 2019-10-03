@@ -3,9 +3,9 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 import SignUp from './views/SignUp.vue'
-import Checks from './views/Checks.vue'
 import { isLogged, getRole } from './helpers/role'
 import EmployersList from './views/EmployersList.vue'
+
 
 Vue.use(Router)
 
@@ -15,7 +15,7 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      redirect: 'checks'
+      redirect: 'landing'
     },
     {
       path: '/login',
@@ -47,9 +47,21 @@ const router = new Router({
       }
     },
     {
-      path: '/checks',
-      name: 'checks',
-      component: () => import('./views/Checks.vue'),
+      path: '/users',
+      name: 'users',
+      component: EmployersList
+      , beforeEnter: (to, from, next) => {
+        if (getRole() == 'ROLE_ADMIN') {
+          next();
+        } else {
+          next('/login')
+        }
+      }
+    },
+    {
+      path: '/landing',
+      name: 'landing',
+      component: () => import('./views/Landing.vue'),
       beforeEnter: (to, from, next) => {
         if (isLogged()) {
           next();
@@ -59,11 +71,24 @@ const router = new Router({
       }
     },
     {
-      path: '/users',
-      name: 'users',
-      component: EmployersList
-      , beforeEnter: (to, from, next) => {
-        if (getRole() == 'ROLE_ADMIN') {
+      path: '/history',
+      name: 'history',
+      component: () => import('./views/LoggedHistory.vue'),
+      beforeEnter: (to, from, next) => {
+        if (isLogged()) {
+          next();
+        } else {
+          next('/login')
+        }
+      }
+    }
+    ,
+    {
+      path: '/user/:id/history',
+      name: 'user-history',
+      component: () => import('./views/LoggedHistory.vue'),
+      beforeEnter: (to, from, next) => {
+        if (isLogged()) {
           next();
         } else {
           next('/login')
