@@ -5,6 +5,7 @@ import Login from './views/Login.vue'
 import SignUp from './views/SignUp.vue'
 import { isLogged, getRole } from './helpers/role'
 import EmployersList from './views/EmployersList.vue'
+import myProfile from './views/MyProfile.vue'
 
 
 Vue.use(Router)
@@ -87,6 +88,18 @@ const router = new Router({
       path: '/user/:id/history',
       name: 'user-history',
       component: () => import('./views/LoggedHistory.vue'),
+      beforeEnter: (to, from, next) => {
+        if (isLogged()) {
+          next();
+        } else {
+          next('/login')
+        }
+      }
+    },
+    {
+      path: '/MyProfile',
+      name: 'myProfile',
+      component: myProfile,
       beforeEnter: (to, from, next) => {
         if (isLogged()) {
           next();

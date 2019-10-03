@@ -10,21 +10,39 @@
       </div>
     </div>
     <div class="navbar-menu" v-if="showNav && role != 'NO_ROLE'" :class="showNav ? 'shadow' : null">
-      <div class="menu-item" @click="showNav = false">
-        <router-link to="/landing">Fichar</router-link>
-      </div>
-      <div class="divider"></div>
-      <div class="menu-item" @click="showNav = false">
-        <router-link to="/history">Historial</router-link>
-      </div>
-      <div class="divider"></div>
-      <div class="menu-item" @click="showNav = false" v-if="role == 'ROLE_ADMIN'">
-        <router-link to="/users">Empleados</router-link>
-      </div>
-      <div class="divider" v-if="role == 'ROLE_ADMIN'"></div>
-      <!-- <div class="menu-item">Mi Perfil</div>
-      <div class="divider"></div>-->
-      <div class="menu-item" @click="logOut()">Cerrar Sesión</div>
+      <ul class="navbar-menu-list">
+        <li @click="showNav = false">
+          <router-link to="/users">
+            <span><font-awesome-icon icon="users" /></span>
+            Empleados
+          </router-link>
+        </li>
+        <li @click="showNav = false">
+          <router-link to="/landing">
+            <span><font-awesome-icon icon="user-clock" /></span>
+            Fichar
+          </router-link>
+        </li>
+        <li @click="showNav = false">
+          <router-link to="/history">
+            <span><font-awesome-icon icon="history" /></span>
+            Historial
+          </router-link>
+        </li>
+        <li @click="showNav = false">
+          <router-link to="/myProfile">
+            <span><font-awesome-icon icon="user-circle" /></span>
+            Mi perfil
+          </router-link>
+        </li>
+        <li @click="logOut()">
+          <router-link to="#">
+            <span><font-awesome-icon icon="sign-out-alt" /></span>
+            Cerrar Sesión
+          </router-link>
+        </li>
+      </ul>
+
     </div>
     <router-view :id="page ? 'view': 'login'" :key="$route.fullPath"></router-view>
   </div>
@@ -47,6 +65,9 @@ export default {
       switch (name) {
         case "landing":
           this.page = "Fichar";
+          break;
+        case "myProfile":
+          this.page = "Mi perfil";
           break;
         case "users":
           this.page = "Empleados";
@@ -99,66 +120,113 @@ body,
   padding: 0;
   box-sizing: border-box;
 }
+
 a {
   color: white;
   text-decoration: none;
 }
+
 #login {
   height: 100%;
 }
+
 #view {
   height: calc(100% - 70px);
 }
+
 .navbar-container {
   height: 100%;
 }
+
 .navbar {
-  height: 70px;
-  background-color: #15387b;
+  padding: 1rem 1.5rem;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  background-color: #15387B;
+  color: white;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.32);
 }
+
 .nav-icon {
   flex-basis: 10%;
   text-align: center;
 }
+
 .nav-title {
-  flex-basis: 90%;
-  color: white;
   font-size: 24px;
-  padding-left: 10px;
 }
+
 .menu-icon {
-  color: white;
   font-size: 24px;
-  margin-right: 10px;
 }
+
 .navbar-menu {
-  text-align: center;
-  color: white;
-  background-color: #2156b8;
+  padding: 1rem .5rem;
+  background-color: #fff;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.32);
 }
-.menu-item {
-  padding: 5px;
-  height: 40px;
+
+.navbar-menu-list{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  list-style: none;
+
+}
+
+.navbar-menu-list li{
+  width: 100%;
+  margin-bottom: 0.7rem;
   font-size: 20px;
+  text-decoration: none;
 }
-.menu-item:active {
+
+.navbar-menu-list li:nth-last-child(1){
+  margin-bottom: 0;
+}
+
+.navbar-menu-list li a{
+  width: 100%;
+  display: block;
+  color: #222;
+}
+
+.navbar-menu-list li a:hover,
+.navbar-menu-list li a:focus{
+  color: #929292;
+  transition: 0.2s;
+  -moz-transition: 0.2s;
+  -o-transition: 0.2s;
+  -webkit-transition: 0.2s;
+}
+
+.navbar-menu-list li a:active {
   transition: ease-in 150ms;
 }
-.divider {
-  background-color: rgba(128, 128, 128, 0.5);
-  width: 90%;
-  margin-left: 5%;
-  margin-right: 5%;
-  height: 1px;
+
+.navbar-menu-list li span{
+  width: 70px;
+  padding-right: .5rem;
+  display: inline-block;
+  text-align: center;
 }
+
+.shadow-sm {
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.32);
+}
+
 .shadow {
   -webkit-box-shadow: 0px 2px 5px -1.9px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 2px 5px -1.9px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 2px 5px -1.9px rgba(0, 0, 0, 0.75);
 }
+
+.hidde{
+  display: none;
+}
+
 /* Ripple effect */
 .ripple {
   background-position: center;

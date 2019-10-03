@@ -50,7 +50,8 @@ var requests = {
                 Authorization: `Bearer ${token["access_token"]}`
             }
         });
-    }, getUsers(name = "") {
+    }, 
+    getUsers(name = "") {
         let token = JSON.parse(localStorage.getItem("token"));
         return axios.get(`${url}/users`, {
             params: {
@@ -60,7 +61,16 @@ var requests = {
                 Authorization: `Bearer ${token["access_token"]}`,
             }
         });
-    }, getPdfUser(from, to) {
+    },
+    editUser(data) {
+        let token = JSON.parse(localStorage.getItem("token"));
+        return axios.patch(`${url}/users/edit`, data, {
+            headers: {
+              Authorization: `Bearer ${token["access_token"]}`
+          }
+      });
+    }, 
+    getPdfUser(from, to) {
         let token = JSON.parse(localStorage.getItem("token"));
         return axios.get(`${url}/users/pdf`,
             {
@@ -74,7 +84,8 @@ var requests = {
                 saveAs(pdfBlob, filename);
             })
             .catch(res => { });
-    }, getPdfAdmin(from, to, user) {
+    },
+    getPdfAdmin(from, to, user) {
         let token = JSON.parse(localStorage.getItem("token"));
         return axios.get(`${url}/users/${user._id}/pdf`,
             {
@@ -88,24 +99,42 @@ var requests = {
                 saveAs(pdfBlob, filename);
             })
             .catch(res => { });
-    }
-    , getUser(id) {
+    },
+    getUser(id) {
         let token = JSON.parse(localStorage.getItem("token"));
         return axios.get(`${url}/users/${id}`, {
             headers: {
                 Authorization: `Bearer ${token["access_token"]}`
             }
         });
-    }
-    , getHoursFromUser(id) {
+    },
+    imageProfile(file) {
+        let token = JSON.parse(localStorage.getItem("token"));
+        const formData = new FormData();
+        formData.append('avatar',file);
+        return axios.post(`${url}/users/photo`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${token["access_token"]}`
+            }
+        });
+    }, 
+    getHoursFromUser(id) {
         let token = JSON.parse(localStorage.getItem("token"));
         return axios.get(`${url}/users/${id}/worked-hours?from=1/1/1970&to=24/09/2020`, {
             headers: {
                 Authorization: `Bearer ${token["access_token"]}`
             }
         });
+    },
+    myProfile() {
+        let token = JSON.parse(localStorage.getItem("token"));
+        return axios.get(`${url}/users/profile`, {
+            headers: {
+                Authorization: `Bearer ${token["access_token"]}`
+            }
+        });
     }
-
 }
 
 
