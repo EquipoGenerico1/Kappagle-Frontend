@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="navbar" :class="!showNav ? 'shadow' : null" v-if="page">
+    <div class="navbar" :class="!showNav ? 'shadow' : null" v-if="page && role">
       <div class="nav-title">{{page}}</div>
       <div class="nav-icon" @click="showNav = !showNav" v-if="role != 'NO_ROLE'">
         <font-awesome-icon icon="bars" class="menu-icon" />
@@ -57,7 +57,7 @@ export default {
     return {
       showNav: false,
       page: null,
-      role: this.getRole()
+      role: null
     };
   },
   methods: {
@@ -72,9 +72,8 @@ export default {
         case "users":
           this.page = "Empleados";
           break;
-
-        default:
-          this.page = "Historial";
+        case "history":
+          this.page = "Mi Historial";
           break;
       }
     },
@@ -82,20 +81,22 @@ export default {
       let token = JSON.parse(localStorage.getItem("token"));
       try {
         if (token["role"]) {
-          return token.role;
+          this.role = token.role;
         }
       } catch (error) {
-        return "NO_ROLE";
+        this.role = "NO_ROLE";
       }
     },
     logOut() {
       localStorage.removeItem("token");
       this.page = null;
       this.showNav = false;
+      this.role = null;
       this.$router.push("/login");
     }
   },
   created: function() {
+    this.getRole();
     this.setViewName(this.$router.history.current.name);
   },
   updated: function() {

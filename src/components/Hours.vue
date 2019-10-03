@@ -56,6 +56,9 @@ export default {
   },
   created() {
     console.log(this.checkIn);
+  },
+  updated() {
+    console.log(this.checkIn);
   }
 };
 </script>

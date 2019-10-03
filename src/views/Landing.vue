@@ -2,19 +2,22 @@
   <div class="landing">
     <KHours
       v-if="todayCheckIn != null"
-      :checkIn="todayCheckIn ? todayCheckIn.checkIn : null"
-      :checkOut="todayCheckIn ? todayCheckIn.checkOut : null"
+      :checkIn="todayCheckIn.checkIn"
+      :checkOut="todayCheckIn.checkOut"
       id="top"
+      :key="updated"
     ></KHours>
     <KTimer
       v-if="todayCheckIn != null"
       :checkIn="todayCheckIn ? todayCheckIn.checkIn : null"
+      :checkOut="todayCheckIn ? todayCheckIn.checkOut: null"
       id="timer"
+      :key="updated + 1"
     ></KTimer>
     <div id="bottom">
       <KCheckButton
-        :value="todayCheckIn != 1 ? 'Salida' : 'Entrada'"
-        @click="todayCheckIn != 1 ?  checkOut() : checkIn()"
+        :value="enter ? 'Entrada' : 'Salida'"
+        @click=" !enter ?  checkOut() : checkIn()"
       ></KCheckButton>
     </div>
   </div>
@@ -40,7 +43,10 @@ export default {
       todayCheckIn: null,
       lat: null,
       lon: null,
-      canCheck: false
+      canCheck: false,
+      btnDisabled: false,
+      enter: true,
+      updated: 0
     };
   },
   methods: {
@@ -50,6 +56,9 @@ export default {
         .then(res => {
           console.log(res);
           this.todayCheckIn = res.data;
+          this.todayCheckIn.checkOut
+            ? (this.enter = true)
+            : (this.enter = false);
           console.log(this.todayCheckIn);
         })
         .catch(err => {
@@ -61,8 +70,10 @@ export default {
         console.log("geolocation supported");
         navigator.geolocation.getCurrentPosition(position => {
           var ll = [position.coords.latitude, position.coords.longitude];
-          var v1 = [28.136693, -15.436721];
-          var v2 = [28.134933, -15.429157];
+          var v1 = [28.12069, -15.454434];
+          var v2 = [28.096368, -15.436259];
+          console.log(ll);
+
           if (
             ll[0] < v1[0] &&
             ll[1] > v1[1] &&
@@ -84,7 +95,11 @@ export default {
           .checkIn()
           .then(res => {
             console.log(res.data);
+            this.updated = moment().unix();
             this.todayCheckIn = res.data;
+            this.todayCheckIn.checkOut
+              ? (this.enter = true)
+              : (this.enter = false);
           })
           .catch(err => {});
       } else {
@@ -98,7 +113,12 @@ export default {
         axios
           .checkOut()
           .then(res => {
-            this.todayCheckIn = 1;
+            console.log(res.data);
+            this.updated = moment().unix();
+            this.todayCheckIn = res.data;
+            this.todayCheckIn.checkOut
+              ? (this.enter = true)
+              : (this.enter = false);
           })
           .catch(err => {});
       }

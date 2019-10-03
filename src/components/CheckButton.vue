@@ -1,6 +1,6 @@
 <template>
   <div class="k-check-button">
-    <button @click="emitClick" id="btn" class="ripple">{{value}}</button>
+    <button @click="emitClick" id="btn" class="ripple" :disabled="isDisabled">{{value}}</button>
   </div>
 </template>
 
@@ -11,6 +11,10 @@ export default {
     value: {
       type: String,
       default: "Enter"
+    },
+    isDisabled: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
