@@ -4,12 +4,12 @@
       <button id="seach-button">
         <font-awesome-icon icon="search" />
       </button>
-      <input type="search" id="mySearch" placeholder="Buscar empleado..." />
+      <input v-model="search" type="search" id="mySearch" placeholder="Buscar empleado..." />
     </div>
     <div id="employers-cards">
       <NCard
         class="users"
-        v-for="user in users"
+        v-for="user in filteredUsers"
         :name="user.name"
         :key="user._id"
         @click="goToDetails(user._id)"
