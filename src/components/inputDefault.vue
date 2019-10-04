@@ -70,7 +70,7 @@ export default {
       if(this.state==true){
         this.stateField = this.state;
         this.data = '';
-        $emit('data', this.data)
+        this.$emit('data', this.data)
       }
     }
   }

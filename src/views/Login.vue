@@ -2,10 +2,10 @@
   <div id="login">
     <h1 class="h1">Login</h1>
 
-    <div class="form">
+    <form class="form">
       <inputDefault :complete="'yes'" :icon="'envelope'" :type="'text'" :label="'Correo electrónico'" :name="'email'" @data="getEmail" :state="warning"/>
       <inputDefault :complete="'off'" :icon="'lock'" :type="'password'" :label="'Contraseña'" :name="'password'" @data="getPassword" :state="warning" />
-    </div>
+    </form>
     <snackBar @click="warning = !warning" v-if="warning" :color="'dark'" :message="'Las credenciales no coinciden'"></snackBar>
     <div class="button-login">
       <ButtonRoundedLarge class="button" value="Acceder" @click="login"></ButtonRoundedLarge>
@@ -85,7 +85,7 @@ export default {
 .button {
   width: calc(100% - 2rem);
   height: 4rem;
-  position: fixed;
+  position: absolute;
   left: 1rem;
   bottom: 1rem;
 }

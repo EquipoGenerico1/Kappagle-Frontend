@@ -5,7 +5,7 @@
     <div class="form_input">
       <div class="form_icon_input">
         <font-awesome-icon @click="disabled = !disabled" icon="pen" size="lg" v-if="disabled"/>
-        <font-awesome-icon @click="updateUsername()" :icon="iconUpdate" size="lg" v-if="!disabled" :class="{'color-red':iconUpdate=='times'}"/>
+        <font-awesome-icon @click.prevent="updateUsername()" :icon="iconUpdate" size="lg" v-if="!disabled" :class="{'color-red':iconUpdate=='times'}"/>
       </div>
       <span class="form_icon color-gray-dark" :class="{'color-gray': !animateLabelAndChangeColor}">
         <font-awesome-icon :icon="icon" />
@@ -17,6 +17,7 @@
         type="text"
         :name="name"
         v-model.trim="value.data"
+        @keydown.enter="$event.preventDefault() & updateUsername()"
         autocomplete="off"
       />
     </div>
