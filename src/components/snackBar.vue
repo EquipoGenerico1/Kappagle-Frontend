@@ -1,9 +1,9 @@
 <template>
   <div class="snackBar">
-    <div class="snackBar_card shadow" >
+    <div class="snackBar_card shadow" :class="[color, {'animate-fade' : fade}]" >
       <div class="snackBar_body">
         <p>{{message}}</p>
-        <font-awesome-icon icon="times" @click="$emit('click')"/>
+        <font-awesome-icon icon="times" @click="animate()"/>
       </div>
     </div>
   </div>
@@ -13,7 +13,27 @@
 export default {
   name: 'snackBar',
   props:{
-    message: String
+    message: String,
+    color: String,
+    second: Number
+  },
+  data() {
+    return {
+      fade: false
+    }
+  },
+  methods: {
+    animate(){
+      this.fade=true;
+      setTimeout(() => {
+        this.$emit('click')
+      }, this.second || 500);
+    }
+  },
+  created() {
+    setTimeout(() => {
+      this.animate();
+    }, this.second || 4000);
   }
 }
 </script>
@@ -28,11 +48,10 @@ export default {
 }
 
 .snackBar_card {
-  width: 400px;
+  width: fit-content;
   padding: 1rem 2rem;
   margin: auto;
   border-radius: 4px;
-  background-color: #444444;
 }
 
 .snackBar_body {
@@ -43,12 +62,21 @@ export default {
   font-size: 18px;
 }
 
-.d-none {
-  display: none;
+.snackBar_body p {
+  padding-right: 2rem;
 }
 
-.d-block {
-  display: block;
+.dark {
+  background-color: #444444;
+}
+
+.danger {
+  background-color: #e45757;
+}
+
+.animate-fade {
+  opacity: 0;
+  transition: .5s;
 }
 
 </style>
