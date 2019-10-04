@@ -37,7 +37,6 @@ export default {
   },
   methods: {
     getEmail(email) {
-      console.log(email);
       this.email = email;
     },
     getPassword(password) {
@@ -52,6 +51,8 @@ export default {
         })
         .catch(error => {
           this.warning = true;
+          this.email='';
+          this.password='';
         });
     }
   }

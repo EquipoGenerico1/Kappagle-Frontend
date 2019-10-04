@@ -1,18 +1,20 @@
 <template>
 <div class="inputDefault">
   <div class="form_content">
-    <label class="label color-gray" :class="{'label_move' : changeColorAndMoveLabel}" :for="name">{{label}}</label>
+    <label class="label color-gray" :class="{'label_move': changeColorAndMoveLabel}" :for="name">{{label}}</label>
     <div class="form_input">
-      <span class="form_icon color-gray-dark" :class="{'color-gray' : !changeColorAndMoveLabel}">
+      <span class="form_icon color-gray-dark" :class="{'color-gray': !changeColorAndMoveLabel}">
         <font-awesome-icon :icon="icon" />
       </span>
       <input
         :id="name"
         class="input color-gray-dark" 
-        :class="{'color-border-blue' : changeColorAndMoveLabel , 'color-red' : stateField}"
+        :class="{'color-border-blue' : changeColorAndMoveLabel ,'color-border-red' : stateField}"
         :type="type"
         :name="name"
         @change="$emit('data', data)"
+        @blur="handleBlur"
+        @click="handleClick"
         v-model.trim="data"
         :autocomplete="complete"
       />
@@ -37,21 +39,38 @@ export default {
     return {
       data: this.value,
       changeColorAndMoveLabel: false,
-      stateField: false
+      stateField: this.state,
+      animation: false
     }
   },
   methods: {
+    handleBlur() {
+      if(this.data == null || this.data.length == 0) {
+        this.changeColorAndMoveLabel = false;
+      }
+      this.animation=false;
+    },
+    handleClick() {
+      this.changeColorAndMoveLabel = true;
+      this.animation=true;
+    },
     animationInput() {
-      this.data.length == 0 ?
+      !this.animation && this.data.length == 0 ?
         this.changeColorAndMoveLabel = false
       :
         this.changeColorAndMoveLabel = true;
     }
   },
-   watch: {
+  watch: {
+    'data'(inputData){
+      this.data = inputData;
+      this.animationInput();
+    },
     'state'() {
       if(this.state==true){
         this.stateField = this.state;
+        this.data = '';
+        $emit('data', this.data)
       }
     }
   }
@@ -89,10 +108,18 @@ export default {
   padding: .8rem .5rem;
   padding-left: 32px;
   border:0;
-  border-bottom: 1px solid #a8a8a8;
+  border-bottom: 2px solid #a8a8a8;
   background-color: transparent;
   outline: 0;
   font-size: 18px;
+}
+
+.input:focus {
+  border-color: #729DFF;
+  transition: 0.2s;
+  -moz-transition: 0.2s;
+  -o-transition: 0.2s;
+  -webkit-transition: 0.2s;
 }
 
 .input::placeholder,
@@ -124,14 +151,6 @@ export default {
   -webkit-transition: 0.2s;
 }
 
-.color-red {
-  border-color: rgb(255, 114, 114);
-  transition: 0.2s;
-  -moz-transition: 0.2s;
-  -o-transition: 0.2s;
-  -webkit-transition: 0.2s;
-}
-
 .color-border-blue {
   border-color: #729DFF;
   transition: 0.2s;
@@ -140,4 +159,11 @@ export default {
   -webkit-transition: 0.2s;
 }
 
+.color-border-red {
+  border-color: rgb(255, 114, 114);
+  transition: 0.2s;
+  -moz-transition: 0.2s;
+  -o-transition: 0.2s;
+  -webkit-transition: 0.2s;
+}
 </style>

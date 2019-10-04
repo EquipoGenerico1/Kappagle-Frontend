@@ -1,9 +1,9 @@
 <template>
   <div class="snackBar">
-    <div class="snackBar_card shadow" :class="color" >
+    <div class="snackBar_card shadow" :class="[color, {'animate-fade' : fade}]" >
       <div class="snackBar_body">
         <p>{{message}}</p>
-        <font-awesome-icon icon="times" @click="$emit('click')"/>
+        <font-awesome-icon icon="times" @click="animate()"/>
       </div>
     </div>
   </div>
@@ -17,10 +17,23 @@ export default {
     color: String,
     second: Number
   },
+  data() {
+    return {
+      fade: false
+    }
+  },
+  methods: {
+    animate(){
+      this.fade=true;
+      setTimeout(() => {
+        this.$emit('click')
+      }, this.second || 500);
+    }
+  },
   created() {
     setTimeout(() => {
-      this.$emit('click')
-    }, this.second || 2000);
+      this.animate();
+    }, this.second || 4000);
   }
 }
 </script>
@@ -41,14 +54,6 @@ export default {
   border-radius: 4px;
 }
 
-.dark {
-  background-color: #444444;
-}
-
-.danger {
-  background-color: #e45757;
-}
-
 .snackBar_body {
   display: flex;
   justify-content: space-between;
@@ -61,12 +66,17 @@ export default {
   padding-right: 2rem;
 }
 
-.d-none {
-  display: none;
+.dark {
+  background-color: #444444;
 }
 
-.d-block {
-  display: block;
+.danger {
+  background-color: #e45757;
+}
+
+.animate-fade {
+  opacity: 0;
+  transition: .5s;
 }
 
 </style>
