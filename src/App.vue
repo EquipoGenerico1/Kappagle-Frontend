@@ -1,48 +1,54 @@
 <template>
   <div id="app">
-    <div class="navbar" :class="!showNav ? 'shadow' : null" v-if="page && role">
+    <div class="navbar" :class="!showNav ? 'shadow' : null" v-if="page">
       <div class="nav-title">{{page}}</div>
-      <div class="nav-icon" @click="showNav = !showNav" v-if="role != 'NO_ROLE'">
+      <div class="nav-icon" @click="showNav = !showNav" v-if="role">
         <font-awesome-icon icon="bars" class="menu-icon" />
-      </div>
-      <div class="nav-icon" v-else>
-        <font-awesome-icon icon="user" class="menu-icon" />
       </div>
     </div>
     <div class="navbar-menu" v-if="showNav && role != 'NO_ROLE'" :class="showNav ? 'shadow' : null">
       <ul class="navbar-menu-list">
-        <li @click="showNav = false">
+        <li v-if="role == 'ROLE_ADMIN'" @click="showNav = false">
           <router-link to="/users">
-            <span><font-awesome-icon icon="users" /></span>
+            <span>
+              <font-awesome-icon icon="users" />
+            </span>
             Empleados
           </router-link>
         </li>
         <li @click="showNav = false">
           <router-link to="/landing">
-            <span><font-awesome-icon icon="user-clock" /></span>
+            <span>
+              <font-awesome-icon icon="user-clock" />
+            </span>
             Fichar
           </router-link>
         </li>
         <li @click="showNav = false">
           <router-link to="/history">
-            <span><font-awesome-icon icon="history" /></span>
+            <span>
+              <font-awesome-icon icon="history" />
+            </span>
             Historial
           </router-link>
         </li>
         <li @click="showNav = false">
           <router-link to="/myProfile">
-            <span><font-awesome-icon icon="user-circle" /></span>
+            <span>
+              <font-awesome-icon icon="user-circle" />
+            </span>
             Mi perfil
           </router-link>
         </li>
         <li @click="logOut()">
           <router-link to="#">
-            <span><font-awesome-icon icon="sign-out-alt" /></span>
+            <span>
+              <font-awesome-icon icon="sign-out-alt" />
+            </span>
             Cerrar Sesión
           </router-link>
         </li>
       </ul>
-
     </div>
     <router-view :id="page ? 'view': 'login'" :key="$route.fullPath"></router-view>
   </div>
@@ -81,7 +87,9 @@ export default {
       let token = JSON.parse(localStorage.getItem("token"));
       try {
         if (token["role"]) {
-          this.role = token.role;
+          if (this.role != token["role"]) {
+            this.role = token.role;
+          }
         }
       } catch (error) {
         this.role = "NO_ROLE";
@@ -100,6 +108,7 @@ export default {
     this.setViewName(this.$router.history.current.name);
   },
   updated: function() {
+    this.getRole();
     this.setViewName(this.$router.history.current.name);
   }
 };
@@ -144,7 +153,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #15387B;
+  background-color: #15387b;
   color: white;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.32);
 }
@@ -163,39 +172,38 @@ a {
 }
 
 .navbar-menu {
-  padding: 1rem .5rem;
+  padding: 1rem 0.5rem;
   background-color: #fff;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.32);
 }
 
-.navbar-menu-list{
+.navbar-menu-list {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   list-style: none;
-
 }
 
-.navbar-menu-list li{
+.navbar-menu-list li {
   width: 100%;
   margin-bottom: 0.7rem;
   font-size: 20px;
   text-decoration: none;
 }
 
-.navbar-menu-list li:nth-last-child(1){
+.navbar-menu-list li:nth-last-child(1) {
   margin-bottom: 0;
 }
 
-.navbar-menu-list li a{
+.navbar-menu-list li a {
   width: 100%;
   display: block;
   color: #222;
 }
 
 .navbar-menu-list li a:hover,
-.navbar-menu-list li a:focus{
+.navbar-menu-list li a:focus {
   color: #929292;
   transition: 0.2s;
   -moz-transition: 0.2s;
@@ -207,9 +215,9 @@ a {
   transition: ease-in 150ms;
 }
 
-.navbar-menu-list li span{
+.navbar-menu-list li span {
   width: 70px;
-  padding-right: .5rem;
+  padding-right: 0.5rem;
   display: inline-block;
   text-align: center;
 }
@@ -224,7 +232,7 @@ a {
   box-shadow: 0px 2px 5px -1.9px rgba(0, 0, 0, 0.75);
 }
 
-.hidde{
+.hidde {
   display: none;
 }
 

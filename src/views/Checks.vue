@@ -88,6 +88,8 @@ export default {
           var ll = [position.coords.latitude, position.coords.longitude];
           var v1 = [28.107019, -15.446851];
           var v2 = [28.105732, -15.445268];
+          console.log(ll);
+
           if (
             ll[0] < v1[0] &&
             ll[1] > v1[1] &&

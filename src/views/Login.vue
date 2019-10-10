@@ -7,18 +7,18 @@
       <inputDefault :complete="'off'" :icon="'lock'" :type="'password'" :label="'Contraseña'" :name="'password'" @data="getPassword" :state="warning" />
     </form>
     <snackBar @click="warning = !warning" v-if="warning" :color="'dark'" :message="'Las credenciales no coinciden'"></snackBar>
+
     <div class="button-login">
       <ButtonRoundedLarge class="button" value="Acceder" @click="login"></ButtonRoundedLarge>
     </div>
-   
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import inputDefault from '@/components/inputDefault';
+import inputDefault from "@/components/inputDefault";
 import ButtonRoundedLarge from "@/components/ButtonRoundedLarge";
-import snackBar from '@/components/snackBar';
+import snackBar from "@/components/snackBar";
 import requests from "@/helpers/axios";
 
 export default {
@@ -99,5 +99,6 @@ export default {
     margin: 0 0 0 -250px;
   }
 }
+
 
 </style>

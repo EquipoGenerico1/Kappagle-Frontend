@@ -50,7 +50,7 @@ var requests = {
                 Authorization: `Bearer ${token["access_token"]}`
             }
         });
-    }, 
+    },
     getUsers(name = "") {
         let token = JSON.parse(localStorage.getItem("token"));
         return axios.get(`${url}/users`, {
@@ -66,10 +66,10 @@ var requests = {
         let token = JSON.parse(localStorage.getItem("token"));
         return axios.patch(`${url}/users/edit`, data, {
             headers: {
-              Authorization: `Bearer ${token["access_token"]}`
-          }
-      });
-    }, 
+                Authorization: `Bearer ${token["access_token"]}`
+            }
+        });
+    },
     getPdfUser(from, to) {
         let token = JSON.parse(localStorage.getItem("token"));
         return axios.get(`${url}/users/pdf`,
@@ -111,14 +111,14 @@ var requests = {
     imageProfile(file) {
         let token = JSON.parse(localStorage.getItem("token"));
         const formData = new FormData();
-        formData.append('avatar',file);
+        formData.append('avatar', file);
         return axios.post(`${url}/users/photo`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
                 Authorization: `Bearer ${token["access_token"]}`
             }
         });
-    }, 
+    },
     getHoursFromUser(id) {
         let token = JSON.parse(localStorage.getItem("token"));
         return axios.get(`${url}/users/${id}/worked-hours?from=1/1/1970&to=24/09/2020`, {
