@@ -2,23 +2,12 @@
   <div id="login">
     <h1 class="h1">Login</h1>
 
-    <div class="form">
-      <inputDefault
-        :icon="'envelope'"
-        :type="'text'"
-        :label="'Correo electrónico'"
-        :name="'email'"
-        @data="getEmail"
-      />
-      <inputDefault
-        :icon="'lock'"
-        :type="'password'"
-        :label="'Contraseña'"
-        :name="'password'"
-        @data="getPassword"
-      />
-    </div>
-    <snackBar v-if="warning" :message="'Usuario o contraseña incorrecto'"></snackBar>
+    <form class="form">
+      <inputDefault :complete="'yes'" :icon="'envelope'" :type="'text'" :label="'Correo electrónico'" :name="'email'" @data="getEmail" :state="warning"/>
+      <inputDefault :complete="'off'" :icon="'lock'" :type="'password'" :label="'Contraseña'" :name="'password'" @data="getPassword" :state="warning" />
+    </form>
+    <snackBar @click="warning = !warning" v-if="warning" :color="'dark'" :message="'Las credenciales no coinciden'"></snackBar>
+
     <div class="button-login">
       <ButtonRoundedLarge class="button" value="Acceder" @click="login"></ButtonRoundedLarge>
     </div>
@@ -48,7 +37,6 @@ export default {
   },
   methods: {
     getEmail(email) {
-      console.log(email);
       this.email = email;
     },
     getPassword(password) {
@@ -63,6 +51,8 @@ export default {
         })
         .catch(error => {
           this.warning = true;
+          this.email='';
+          this.password='';
         });
     }
   }
@@ -95,7 +85,7 @@ export default {
 .button {
   width: calc(100% - 2rem);
   height: 4rem;
-  position: fixed;
+  position: absolute;
   left: 1rem;
   bottom: 1rem;
 }
@@ -110,11 +100,5 @@ export default {
   }
 }
 
-.error {
-  color: #df4747;
-}
 
-.error_input {
-  border-color: #df4747;
-}
 </style>

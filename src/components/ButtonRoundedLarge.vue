@@ -35,7 +35,7 @@ export default {
 <style scoped>
 .btn {
   width: 100%;
-  height: 100%;
+  padding: 1.3rem;
   outline: 0;
   border: 0;
   border-radius: 50px;
